@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Training</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#sql-basics">SQL Basics</a>
+<ul>
+<li><a href="#create-a-table-and-inert-new-entries">Create a table and inert new entries</a></li>
+<li><a href="#query-a-table">Query a Table</a></li>
+<li><a href="#aggregate-data">Aggregate Data</a></li>
+<li><a href="#calculating-results-with-case">Calculating results with CASE</a></li>
+</ul>
+</li>
+<li><a href="#relational-queries-in-sql">Relational Queries in SQL</a>
+<ul>
+<li><a href="#outer-join">Outer Join</a></li>
+<li><a href="#self-join">Self-Join</a></li>
+<li><a href="#multiple-joins">Multiple Joins</a></li>
+</ul>
+</li>
+<li><a href="#modifying-databases-with-sql">Modifying databases with SQL</a>
+<ul>
+<li><a href="#make-your-sql-safer">Make your SQL safer</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="sql-basics">SQL Basics</h1>
+<p></p>
+<h2 id="create-a-table-and-inert-new-entries">Create a table and inert new entries</h2>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> groceries
+	<span class="token punctuation">(</span>id <span class="token keyword">INTEGER</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span> name <span class="token keyword">TEXT</span><span class="token punctuation">,</span> quantity <span class="token keyword">INTEGER</span><span class="token punctuation">,</span> aisle <span class="token keyword">INTEGER</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> groceries <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Bananas"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> groceries <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"Peanut Butter"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> groceries <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"Dark Chocolate Bars"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> groceries <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"Ice cream"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> groceries <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">"Cherries"</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> groceries <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token string">"Chocolate syrup"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="query-a-table">Query a Table</h2>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> groceries 
+</code></pre>
+<p>With sorting</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* ORDER BY */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> groceries
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> aisle 
+</code></pre>
+<p>With conditions</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* WHERE */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> groceries
+<span class="token keyword">WHERE</span> aisle <span class="token operator">&gt;</span> <span class="token number">5</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* IN */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> exercise_logs
+<span class="token keyword">WHERE</span> <span class="token keyword">type</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token string">"biking"</span><span class="token punctuation">,</span> <span class="token string">"hiking"</span><span class="token punctuation">,</span> <span class="token string">"tree climbing"</span><span class="token punctuation">,</span> <span class="token string">"rowing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* NOT IN */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> exercise_logs
+<span class="token keyword">WHERE</span> <span class="token keyword">type</span> <span class="token operator">NOT</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token string">"biking"</span><span class="token punctuation">,</span> <span class="token string">"hiking"</span><span class="token punctuation">,</span> <span class="token string">"tree climbing"</span><span class="token punctuation">,</span> <span class="token string">"rowing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* AND */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> groceries
+<span class="token keyword">WHERE</span> aisle <span class="token operator">&gt;</span> <span class="token number">5</span> <span class="token operator">AND</span> quantity <span class="token operator">&gt;</span> <span class="token number">1</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* OR */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> groceries
+<span class="token keyword">WHERE</span> aisle <span class="token operator">&gt;</span> <span class="token number">5</span> <span class="token operator">OR</span> quantity <span class="token operator">&gt;</span><span class="token number">5</span>
+</code></pre>
+<h3 id="sql-subquery">SQL Subquery</h3>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> exercise_logs 
+<span class="token keyword">WHERE</span> <span class="token keyword">type</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> <span class="token keyword">type</span> 
+		<span class="token keyword">FROM</span> drs_favorites<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* LIKE */</span>
+
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> 
+<span class="token keyword">FROM</span> exercise_logs 
+<span class="token keyword">WHERE</span> <span class="token keyword">type</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> <span class="token keyword">type</span> 
+		<span class="token keyword">FROM</span> drs_favorites
+		<span class="token keyword">WHERE</span> reason <span class="token operator">LIKE</span> <span class="token string">"%cardiovascular%"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="aggregate-data">Aggregate Data</h2>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token function">SUM</span><span class="token punctuation">(</span>quantity<span class="token punctuation">)</span>
+<span class="token keyword">FROM</span> groceries<span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token function">MAX</span><span class="token punctuation">(</span>quantity<span class="token punctuation">)</span>
+<span class="token keyword">FROM</span> groceries<span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* GROUP BY */</span>
+
+<span class="token keyword">SELECT</span> aisle<span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span>quantity<span class="token punctuation">)</span>
+<span class="token keyword">FROM</span> groceries
+<span class="token keyword">GROUP</span> <span class="token keyword">BY</span> aisle<span class="token punctuation">;</span>
+</code></pre>
+<h3 id="restricting-grouped-results-with-having">Restricting grouped results with HAVING</h3>
+<p>When using <code>HAVING</code>, the filtering applies to the grouping results.</p>
+<p>When using <code>WHERE</code>, the filtering applies to the individual rows.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* HAVING */</span>
+
+<span class="token keyword">SELECT</span> <span class="token keyword">type</span><span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span>calories<span class="token punctuation">)</span> <span class="token keyword">AS</span> total_calories <span class="token keyword">FROM</span> exercise_logs
+    <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token keyword">type</span>
+    <span class="token keyword">HAVING</span> total_calories <span class="token operator">&gt;</span> <span class="token number">150</span>
+</code></pre>
+<p><img src="https://imgur.com/odJUNzO.png" alt="enter image description here"></p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* COUNT(*) */</span>
+
+<span class="token keyword">SELECT</span> <span class="token keyword">type</span> <span class="token keyword">FROM</span> exercise_logs
+	<span class="token keyword">GROUP</span> <span class="token keyword">BY</span> <span class="token keyword">type</span>
+	<span class="token keyword">HAVING</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">&gt;=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="calculating-results-with-case">Calculating results with CASE</h2>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* CASE */</span>
+
+<span class="token keyword">SELECT</span> <span class="token keyword">type</span><span class="token punctuation">,</span> heart_rate<span class="token punctuation">,</span>
+    <span class="token keyword">CASE</span> 
+        <span class="token keyword">WHEN</span> heart_rate <span class="token operator">&gt;</span> <span class="token number">220</span><span class="token operator">-</span><span class="token number">30</span> <span class="token keyword">THEN</span> <span class="token string">"above max"</span>
+        <span class="token keyword">WHEN</span> heart_rate <span class="token operator">&gt;</span> <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token number">0.90</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">220</span><span class="token operator">-</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span> <span class="token string">"above target"</span>
+        <span class="token keyword">WHEN</span> heart_rate <span class="token operator">&gt;</span> <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token number">0.50</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">220</span><span class="token operator">-</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span> <span class="token string">"within target"</span>
+        <span class="token keyword">ELSE</span> <span class="token string">"below target"</span>
+    <span class="token keyword">END</span> <span class="token keyword">as</span> <span class="token string">"hr_zone"</span>
+<span class="token keyword">FROM</span> exercise_logs<span class="token punctuation">;</span>
+</code></pre>
+<p><img src="https://i.imgur.com/hN0d9EI.png" alt="enter image description here"></p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">CASE</span> 
+        <span class="token keyword">WHEN</span> heart_rate <span class="token operator">&gt;</span> <span class="token number">220</span><span class="token operator">-</span><span class="token number">30</span> <span class="token keyword">THEN</span> <span class="token string">"above max"</span>
+        <span class="token keyword">WHEN</span> heart_rate <span class="token operator">&gt;</span> <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token number">0.90</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">220</span><span class="token operator">-</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span> <span class="token string">"above target"</span>
+        <span class="token keyword">WHEN</span> heart_rate <span class="token operator">&gt;</span> <span class="token function">ROUND</span><span class="token punctuation">(</span><span class="token number">0.50</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">220</span><span class="token operator">-</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span> <span class="token string">"within target"</span>
+        <span class="token keyword">ELSE</span> <span class="token string">"below target"</span>
+    <span class="token keyword">END</span> <span class="token keyword">as</span> <span class="token string">"hr_zone"</span>
+<span class="token keyword">FROM</span> exercise_logs
+<span class="token keyword">GROUP</span> <span class="token keyword">BY</span> hr_zone<span class="token punctuation">;</span>
+</code></pre>
+<p><img src="https://i.imgur.com/BDt9dVm.png" alt="enter image description here"></p>
+<h1 id="relational-queries-in-sql">Relational Queries in SQL</h1>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student_grades<span class="token punctuation">;</span> 
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> students<span class="token punctuation">;</span>
+</code></pre>
+<p><img src="https://i.imgur.com/OVbHsfR.png" alt="enter image description here"></p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* implicit inner join */</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> student_grades<span class="token punctuation">,</span> students
+    <span class="token keyword">WHERE</span> student_grades<span class="token punctuation">.</span>student_id <span class="token operator">=</span> students<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* explicit inner join - JOIN */</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> students
+    <span class="token keyword">JOIN</span> student_grades
+    <span class="token keyword">ON</span> students<span class="token punctuation">.</span>id <span class="token operator">=</span> student_grades<span class="token punctuation">.</span>student_id<span class="token punctuation">;</span>
+</code></pre>
+<p><img src="https://i.imgur.com/LWqIe9U.png" alt="enter image description here"></p>
+<h2 id="outer-join">Outer Join</h2>
+<p>The FULL <em>OUTER JOIN</em> keyword returns all matching records from both tables whether the other table matches or not.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* outer join - LEFT OUTER */</span> 
+<span class="token keyword">SELECT</span> students<span class="token punctuation">.</span>first_name<span class="token punctuation">,</span> students<span class="token punctuation">.</span>last_name<span class="token punctuation">,</span> student_projects<span class="token punctuation">.</span>title
+    <span class="token keyword">FROM</span> students
+    <span class="token keyword">LEFT</span> <span class="token keyword">OUTER</span> <span class="token keyword">JOIN</span> student_projects
+    <span class="token keyword">ON</span> students<span class="token punctuation">.</span>id <span class="token operator">=</span> student_projects<span class="token punctuation">.</span>student_id<span class="token punctuation">;</span>
+</code></pre>
+<p><img src="https://i.imgur.com/eZu9Ct8.png" alt="enter image description here"></p>
+<h2 id="self-join">Self-Join</h2>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">/* self join */</span>
+<span class="token keyword">SELECT</span> students<span class="token punctuation">.</span>first_name<span class="token punctuation">,</span> students<span class="token punctuation">.</span>last_name<span class="token punctuation">,</span> buddies<span class="token punctuation">.</span>email <span class="token keyword">as</span> buddy_email
+    <span class="token keyword">FROM</span> students
+    <span class="token keyword">JOIN</span> students buddies
+    <span class="token keyword">ON</span> students<span class="token punctuation">.</span>buddy_id <span class="token operator">=</span> buddies<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</code></pre>
+<h2 id="multiple-joins">Multiple Joins</h2>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SELECT</span> <span class="token number">a</span><span class="token punctuation">.</span>fullname<span class="token punctuation">,</span> <span class="token number">b</span><span class="token punctuation">.</span>fullname <span class="token keyword">FROM</span> friends
+    <span class="token keyword">JOIN</span> persons <span class="token number">a</span>
+    <span class="token keyword">ON</span> <span class="token number">a</span><span class="token punctuation">.</span>id <span class="token operator">=</span> friends<span class="token punctuation">.</span>person1_id
+    <span class="token keyword">JOIN</span> persons <span class="token number">b</span>
+    <span class="token keyword">ON</span> <span class="token number">b</span><span class="token punctuation">.</span>id <span class="token operator">=</span> friends<span class="token punctuation">.</span>person2_id
+</code></pre>
+<h1 id="modifying-databases-with-sql">Modifying databases with SQL</h1>
+<p>Update Operation</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">UPDATE</span> diary_logs
+	<span class="token keyword">SET</span> content <span class="token operator">=</span> <span class="token string">"I had a horrible fight with OhNoesGuy"</span>
+	<span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Delete Operation</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> diary_logs
+	<span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Altering tables after creation</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> diary_logs <span class="token keyword">ADD</span> emotion <span class="token keyword">TEXT</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> diary_logs <span class="token keyword">ADD</span> emotion <span class="token keyword">TEXT</span> <span class="token keyword">default</span> <span class="token string">"unknown"</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Delete the entire table</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> diary_logs<span class="token punctuation">;</span>
+</code></pre>
+<h2 id="make-your-sql-safer">Make your SQL safer</h2>
+<p>LIMIT operator</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">UPDATE</span> users
+	<span class="token keyword">SET</span> deleted <span class="token operator">=</span> <span class="token boolean">true</span>
+	<span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">1</span>
+	<span class="token keyword">LIMIT</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">DELETE</span> users
+	<span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">1</span>
+	<span class="token keyword">LIMIT</span> <span class="token number">1</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="references">References</h1>
+<p>Khan Academy<br>
+Intro to SQL: Querying and managing data<br>
+<a href="https://www.khanacademy.org/computing/computer-programming/sql">https://www.khanacademy.org/computing/computer-programming/sql</a></p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
