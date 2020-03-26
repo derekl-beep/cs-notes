@@ -1,4 +1,5 @@
-﻿# SQL Basics
+﻿
+# SQL Basics
 ﻿
 ## Create a table and inert new entries
 
@@ -155,6 +156,9 @@ GROUP BY hr_zone;
 ![enter image description here](https://i.imgur.com/BDt9dVm.png)
 
 # Relational Queries in SQL
+
+## Inner Join
+
 ```sql
 SELECT * FROM student_grades; 
 SELECT * FROM students;
@@ -255,9 +259,19 @@ DELETE users
 
 
 # References
-Khan Academy
+
+- Khan Academy
 Intro to SQL: Querying and managing data
 https://www.khanacademy.org/computing/computer-programming/sql
+
+- W3Schools
+SQL Tutorial
+https://www.w3schools.com/sql/default.asp
+
+- dofactory
+SQL Tutorial
+https://www.dofactory.com/sql/tutorial
+
 
 
 
