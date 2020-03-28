@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course II - Ordered Data Structures</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#syllabus">Syllabus</a></li>
+<li><a href="#linear-structures">1 - Linear Structures</a>
+<ul>
+<li><a href="#key-concepts">Key Concepts</a></li>
+<li><a href="#arrays">Arrays</a></li>
+<li><a href="#linked-memory">Linked Memory</a></li>
+<li><a href="#run-time-analysis">Run Time Analysis</a></li>
+<li><a href="#array-and-list-operations">Array and List Operations</a></li>
+<li><a href="#queue-data-structure">Queue (Data Structure)</a></li>
+<li><a href="#stack-data-structure">Stack (Data Structure)</a></li>
+</ul>
+</li>
+<li><a href="#intro-to-tree-structures">2 - Intro to Tree Structures</a></li>
+<li><a href="#advanced-tree-structures">3 - Advanced Tree Structures</a></li>
+<li><a href="#heap-structures">4 - Heap Structures</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="syllabus">Syllabus</h1>
+<p>The specific data structures covered by this course include:</p>
+<ul>
+<li>Arrays</li>
+<li>Linked lists</li>
+<li>Queues</li>
+<li>Stacks</li>
+<li>Trees</li>
+<li>Binary trees</li>
+<li>AVL trees</li>
+<li>B-trees</li>
+<li>Heaps</li>
+</ul>
+<p>This course also shows, through algorithmic complexity analysis, how these structures enable the fastest algorithms to <strong>search</strong> and <strong>sort</strong> data.</p>
+<h1 id="linear-structures">1 - Linear Structures</h1>
+<h2 id="key-concepts">Key Concepts</h2>
+<p>Linear data structures for maintaining an ordered list of items, including</p>
+<ul>
+<li>Arrays</li>
+<li>Linked lists</li>
+<li>Queues and stacks</li>
+</ul>
+<p>and their algorithmic analysis of <strong>time complexity</strong> for key operations such as <strong>inserting</strong> or <strong>deleting</strong> an item.</p>
+<h2 id="arrays">Arrays</h2>
+<p>An array stores data in blocks of <strong>sequential memory</strong>.</p>
+<p><strong>Array Limitation</strong></p>
+<ul>
+<li>All data in an array must be of the <strong>same type</strong></li>
+<li>The <strong>size</strong> (number of bytes) of the type of data is known.
+<ul>
+<li><code>sizeof(x)</code> to find the byte size of a variable</li>
+</ul>
+</li>
+<li>Arrays have a fixed <strong>capacity</strong>.
+<ul>
+<li>Arrays <strong>must</strong> store their data sequentially in memory.</li>
+<li>The <strong>capacity</strong> of an array is the maximum number of elements that can be stored.</li>
+<li>The <strong>size</strong> of an array is the current number of elements stored in the array.</li>
+</ul>
+</li>
+</ul>
+<p>The <strong>only way</strong> to add another element when an array is full is to allocate a new, larger array and <strong>copy</strong> over all of the data.</p>
+<h3 id="arrays-in-c">Arrays in C++</h3>
+<p>The <code>std::vector</code> implements an array that dynamically grows in size automatically. However, all properties remain true:</p>
+<ul>
+<li>Array elements are a fixed data type.</li>
+<li>At any given point, the array has a fixed capacity.</li>
+<li>The array must be expanded when the capacity is reached.</li>
+</ul>
+<h2 id="linked-memory">Linked Memory</h2>
+<p>Linked memory stores data together with a “link” to the location (in memory) of the next list node:</p>
+<p><img src="https://imgur.com/ZmT0csM.png" alt="enter image description here"></p>
+<h3 id="list-nodes">List Nodes</h3>
+<p>A <strong>list node</strong> refers to pair of both the date and the link.<br>
+<img src="https://imgur.com/yUvdDrJ.png" alt="enter image description here"></p>
+<h3 id="linked-list">Linked List</h3>
+<p>Zero or more <code>ListNode</code> elements linked together form a <strong>Linked List</strong>.</p>
+<p><img src="https://i.imgur.com/dqhyFoW.png" alt=""></p>
+<ul>
+<li>A pointer called the <strong>“head pointer”</strong> stores the link to the beginning of the list.</li>
+<li>A pointer to <code>nullptr</code> (<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="double-struck">∅</mi></mrow><annotation encoding="application/x-tex">\bold{\mathbb{∅}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.66334em; vertical-align: -0.08167em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">∅</span></span></span></span></span></span></span>) marks the end of the list.</li>
+</ul>
+<h3 id="listget"><code>List::get</code></h3>
+<p><strong>Objective</strong>: Return the element at index <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathdefault" style="margin-right: 0.03148em;">k</span></span></span></span></span>.</p>
+<p><img src="https://i.imgur.com/mnD7ZY0.png" alt=""></p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename T<span class="token operator">&gt;</span>
+<span class="token keyword">const</span> T <span class="token operator">&amp;</span> List<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span>operator<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Start a `thru` pointer to advance thru the list:</span>
+    ListNode <span class="token operator">*</span>thru <span class="token operator">=</span> head_<span class="token punctuation">;</span>
+    
+    <span class="token comment">// Loop until the end of the list (or until a `nullptr`):</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>index <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> thru<span class="token operator">-&gt;</span>next <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        thru <span class="token operator">=</span> thru<span class="token operator">-&gt;</span>next<span class="token punctuation">;</span>
+        index<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token comment">// Return the data:</span>
+    <span class="token keyword">return</span> thru<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="list-run-time">List Run-time</h3>
+<p>In a list, the time it takes to access a given index grows based on the size of the list.</p>
+<p>In contrast, an array can access any element in a constant fixed amount of time. Therefore, for accessing a given index, an array is faster than a list.</p>
+<h3 id="listinsert"><code>List::insert</code></h3>
+<p><strong>Objective</strong>: Add an element to the list.</p>
+<p>The header file <code>List.h</code> looks like</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename T<span class="token operator">&gt;</span>
+<span class="token keyword">void</span> List<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">insertAtFront</span><span class="token punctuation">(</span><span class="token keyword">const</span> T <span class="token operator">&amp;</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create a new ListNode on the heap:</span>
+    ListNode <span class="token operator">*</span>node <span class="token operator">=</span> new <span class="token function">ListNode</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Set the new node's next pointer point the current</span>
+    <span class="token comment">// head of the List:</span>
+    node<span class="token operator">-&gt;</span>next <span class="token operator">=</span> head_<span class="token punctuation">;</span>
+
+    <span class="token comment">// Set the List's head pointer to be the new node:</span>
+    head_ <span class="token operator">=</span> node<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="list-capacity">List Capacity</h3>
+<p>In a list, the <strong>capacity</strong> is bounded only by the memory available on the system.</p>
+<p>In contrast, an array has a fixed capacity. A list is a more flexible data structure than an array.</p>
+<h3 id="data-types">Data Types</h3>
+<p>In both arrays and lists, all data within an instance of a container must be the same type.</p>
+<ul>
+<li>An integer {array, list} be only contain integers.</li>
+<li>A string {array, list} must only contain strings.</li>
+<li>…</li>
+</ul>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>Linked memery stores data in “nodes” linked together by “links” (pointers).</li>
+<li>A basic linked memory structure is a Linked List, which consists of zero or more <code>ListNodes</code> linked together and a <strong>head</strong> pointer.</li>
+<li>A linked list provides a flexible alternative to an array.</li>
+</ul>
+<h2 id="run-time-analysis">Run Time Analysis</h2>
+<p><strong>Run-time Analysis</strong> allows us to formalize a method of comparing the speed of an algorithm as the size of input grows.</p>
+<p>We summarize the runtime in “Big-O notation”, leaving only the term that dominates the growth:</p>
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>, constant time</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span>, linear time</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06411em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span>, polynomial time</li>
+</ul>
+<h2 id="array-and-list-operations">Array and List Operations</h2>
+<p><img src="https://i.imgur.com/YGJmd0U.png" alt=""></p>
+<h3 id="access-a-given-index">Access a Given Index</h3>
+<p><strong>Objective</strong>: Access a given index:</p>
+<ul>
+<li>Array: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Linked List: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></li>
+</ul>
+<h3 id="array-resize-strategy">Array Resize Strategy</h3>
+<p><strong>Objective</strong>: Resize an array:</p>
+<p>Strategy #1: When the array is full, make a copy of the array and add two to the capacity.</p>
+<ul>
+<li>The total number of copies made is <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>n</mi></mrow><mn>4</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{n^2+2n}{4}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.36292em; vertical-align: -0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.01792em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.394em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.891314em;"><span class="" style="top: -2.931em; margin-right: 0.0714286em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight">2</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06411em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></li>
+</ul>
+<p>Strategy #2: When the array is full, double the capacity.</p>
+<ul>
+<li>The total number of copies made is <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">2(n-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">2</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Average work per element: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mfrac><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{O(n)}{n}=O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.355em; vertical-align: -0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.01em;"><span class="" style="top: -2.655em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.485em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right: 0.02778em;">O</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">n</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+</ul>
+<h3 id="insert-at-front">Insert at Front</h3>
+<p><strong>Objective</strong>: Insert an element at the front</p>
+<ul>
+<li>Array: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> - amortized constant time when array size is doubled when copied</li>
+<li>List: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> - fixed constant time by adding the new data at the head of the list</li>
+</ul>
+<h3 id="find-data">Find Data</h3>
+<p><strong>Objective</strong>: Given data, find the location of that data in the collection.</p>
+<ul>
+<li>Array: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span> - requires searching up to the full array, one-by-one, to find a match</li>
+<li>List: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span> - requires searching up to the full list, one-by-one, to find a match</li>
+</ul>
+<h3 id="find-data-in-a-sorted-array">Find Data in a Sorted Array</h3>
+<p><strong>Objective</strong>: Given data, find the location of that data in the collection.</p>
+<ul>
+<li>Unsorted Array: Linear Search: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Sorted Array: Binary Search: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mtext>lg</mtext><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\text{lg}(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord text"><span class="mord">lg</span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></li>
+<li>All Lists: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></li>
+</ul>
+<h3 id="insert-after">Insert After</h3>
+<p><strong>Objective</strong>: Given an element (ListNode or index), insert a new element immediately afterwards.</p>
+<ul>
+<li>Arrays: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span> - requires copying up to half of the array to make space for the new element</li>
+<li>Lists: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> - fixed constant time to add a new element after finding the previous element</li>
+</ul>
+<h3 id="delete-after">Delete After</h3>
+<p><strong>Objective</strong>: Given an element (ListNode or index), delete the element immediately afterwards.</p>
+<ul>
+<li>Arrays: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span> - requires copying up to half of the array to remove the blank space</li>
+<li>Lists: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> - fixed constant time to remove a ListNode and repair the list.</li>
+</ul>
+<h3 id="summary-1">Summary</h3>
+<p>Arrays and lists are both ordered collections that have complex trade-offs between run-time and flexibility.</p>
+<p>We will build data structures using these primitive structures.</p>
+<h2 id="queue-data-structure">Queue (Data Structure)</h2>
+<p>A queue is a first-in-first-out (FIFO) data structure that is similar to waiting in a line or “queue”.</p>
+<p><img src="https://i.imgur.com/mRPMu2k.png" alt=""></p>
+<h3 id="abstract-data-type">Abstract Data Type</h3>
+<p>In data structures, we will always begin our analysis asking “how can this structure be used with data?”</p>
+<p>A structures’s <strong>Abstract Data Type</strong> (ADT) is how data interacts with the structures.</p>
+<ul>
+<li>An ADT is <strong>not</strong> an implementation, it is a description.</li>
+</ul>
+<h3 id="queue-adt">Queue ADT</h3>
+<ul>
+<li><code>create</code> --&gt; Creates an empty queue</li>
+<li><code>push</code> --&gt; Adds data to the back of the queue</li>
+<li><code>pop</code> --&gt; Removes data from the front of the queue</li>
+<li><code>empty</code> --&gt; Returns <code>True</code> if the queue is empty</li>
+</ul>
+<h3 id="queue-in-c">Queue in C++</h3>
+<p>C++ has built-in queue data type in the standard library, e.g. <code>std::queue&lt;std::string&gt; q</code> creates a string queue <code>q</code>.</p>
+<p><strong>Example</strong></p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;queue&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create a std::queue:</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>queue<span class="token operator">&lt;</span>std<span class="token punctuation">:</span><span class="token punctuation">:</span>string<span class="token operator">&gt;</span> q<span class="token punctuation">;</span>
+
+    <span class="token comment">// Add several strings to the queue:</span>
+    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Orange"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Blue"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Illionis"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Print the front of the queue out and pop it off:</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"First pop(): "</span> <span class="token operator">&lt;&lt;</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    q<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Add another string and then print out the front of the queues:</span>
+    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Illini"</span> <span class="token punctuation">)</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Second pop(): "</span> <span class="token operator">&lt;&lt;</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>First pop(): Orange
+Second pop(): Blue
+</code></pre>
+<h3 id="implementation">Implementation</h3>
+<p>Array-based queue</p>
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Amortized run-time for <code>push</code> and <code>pop</code>; occasional need to double the capacity of the array.</li>
+</ul>
+<p>List-based queue</p>
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Doubly-linked list required for <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> run-times.</li>
+</ul>
+<h3 id="summary-2">Summary</h3>
+<p>A queue may be implemented with an array or a doubly-linked list.</p>
+<p>Both implementation can be built to run in constant, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time.</p>
+<h2 id="stack-data-structure">Stack (Data Structure)</h2>
+<p>A stack is a <strong>last-in</strong>-first-out (LIFO) data structure that is similar to a pile (“stack”) of papers.</p>
+<p><img src="https://i.imgur.com/3kR7MEG.png" alt=""></p>
+<h3 id="stack-adt">Stack ADT</h3>
+<ul>
+<li><code>create</code> --&gt; Creates an empty stack</li>
+<li><code>push</code> --&gt; Adds data to the top of the stack</li>
+<li><code>pop</code> --&gt; Removes data from the top of the stack</li>
+<li><code>empty</code> --&gt; Returns <code>True</code> if the stack is empty</li>
+</ul>
+<h3 id="stack-in-c">Stack in C++</h3>
+<p>C++ has built-in stack data type in the standard library, e.g. <code>std::stack&lt;std::string&gt; a</code> creates a string stack <code>s</code>.</p>
+<p><strong>Example</strong></p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stack&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create a std::stack:</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>stack<span class="token operator">&lt;</span>std<span class="token punctuation">:</span><span class="token punctuation">:</span>string<span class="token operator">&gt;</span> s<span class="token punctuation">;</span>
+
+    <span class="token comment">// Add several strings to the stack:</span>
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Orange"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Blue"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Illionis"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Print the front of the stack out and pop it off:</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"First pop():"</span> <span class="token operator">&lt;&lt;</span> s<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Add another string and then print out the top of the stack:</span>
+    s<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> <span class="token string">"Illini"</span> <span class="token punctuation">)</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Second pop():"</span> <span class="token operator">&lt;&lt;</span> s<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>First pop(): Illionis
+Second pop(): Illini
+</code></pre>
+<h3 id="implementation-1">Implementation</h3>
+<p><strong>Objective:</strong> Create a Stack Data Structure</p>
+<p>Array-based</p>
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Store the index of the top element only</li>
+<li>Amortized run-time for <code>push</code> and <code>pop</code>; occasional need to double the capacity of the array.</li>
+</ul>
+<p>List-based</p>
+<ul>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></li>
+<li>Singly-linked list is sufficient</li>
+</ul>
+<h3 id="summary-3">Summary</h3>
+<p>A stack may be implemented with an array or a linked list.</p>
+<p>Both can be built to run in constant, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>, running time.</p>
+<h1 id="intro-to-tree-structures">2 - Intro to Tree Structures</h1>
+<p>// Nothing</p>
+<h1 id="advanced-tree-structures">3 - Advanced Tree Structures</h1>
+<p>// Nothing</p>
+<h1 id="heap-structures">4 - Heap Structures</h1>
+<p>// Nothing</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
