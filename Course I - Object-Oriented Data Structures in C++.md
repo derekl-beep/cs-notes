@@ -1,4 +1,4 @@
-﻿# Week 1 - Writing a C++ Program
+﻿# 1 - Writing a C++ Program
 
 ## Some Basics concepts
 - In C++ a function declared with type `void` does not return a value.
@@ -335,7 +335,7 @@ int main() {
 ```
 
 
-# Week 2 - Understanding the C++ Memory Model
+# 2 - Understanding the C++ Memory Model
 
 ## Key Concepts
 
@@ -881,7 +881,7 @@ int main() {
 }
 ```
 
-# Week 3 - Developing C++ Classes
+# 3 - Developing C++ Classes
 
 ## Key Concepts
 
@@ -1562,7 +1562,7 @@ public:
 }
 ```
 
-# Week 4 - Engineering C++ Software Solutions
+# 4 - Engineering C++ Software Solutions
 
 ## Key Concepts
 
@@ -1885,5 +1885,12 @@ double Shape::getWidth() const {
 	return width_;
 }	
 ```
+
+# References
+
+- Prof. [Wade Fagen-Ulmschneider](https://www.coursera.org/instructor/fagen)
+*The University of Illinois at Urbana-Champaign*
+Object-Oriented Data Structures in C++
+[https://www.coursera.org/learn/cs-fundamentals-1](https://www.coursera.org/learn/cs-fundamentals-1)
 
 > Written with [StackEdit](https://stackedit.io/).
