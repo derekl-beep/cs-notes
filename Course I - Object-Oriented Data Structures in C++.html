@@ -1,0 +1,1738 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course I - Object-Oriented Data Structures in C++</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#week-1---writing-a-c-program">Week 1 - Writing a C++ Program</a>
+<ul>
+<li><a href="#some-basics-concepts">Some Basics concepts</a></li>
+<li><a href="#making-comments-in-c">Making Comments in C++</a></li>
+<li><a href="#if-else">If-else</a></li>
+<li><a href="#comparison-operators-and-arithmetic-operators">Comparison Operators and Arithmetic Operators</a></li>
+<li><a href="#type-casting">Type Casting</a></li>
+<li><a href="#block-scope">Block Scope</a></li>
+<li><a href="#declaring-a-class">Declaring a Class</a></li>
+</ul>
+</li>
+<li><a href="#week-2---understanding-the-c-memory-model">Week 2 - Understanding the C++ Memory Model</a>
+<ul>
+<li><a href="#key-concepts">Key Concepts</a></li>
+<li><a href="#stack-memory">Stack Memory</a></li>
+<li><a href="#pointer">Pointer</a></li>
+<li><a href="#dereference-operator">Dereference Operator</a></li>
+<li><a href="#heap-memory">Heap Memory</a></li>
+<li><a href="#headers-and-source-files-in-c">Headers and Source Files in C++</a></li>
+<li><a href="#week-2-quiz-remarks">Week 2 Quiz Remarks</a></li>
+<li><a href="#week-2-challenge">Week 2 Challenge</a></li>
+</ul>
+</li>
+<li><a href="#week-3---developing-c-classes">Week 3 - Developing C++ Classes</a>
+<ul>
+<li><a href="#key-concepts-1">Key Concepts</a></li>
+<li><a href="#class-constructors">Class Constructors</a></li>
+<li><a href="#copy-constructors">Copy Constructors</a></li>
+<li><a href="#copy-assignment-operator">Copy Assignment Operator</a></li>
+<li><a href="#variable-storage">Variable Storage</a></li>
+<li><a href="#class-destructor">Class Destructor</a></li>
+<li><a href="#c-syntax-notes">C++ Syntax Notes</a></li>
+<li><a href="#quiz-remarks">Quiz Remarks</a></li>
+</ul>
+</li>
+<li><a href="#week-4---engineering-c-software-solutions">Week 4 - Engineering C++ Software Solutions</a>
+<ul>
+<li><a href="#key-concepts-2">Key Concepts</a></li>
+<li><a href="#template-types">Template Types</a></li>
+<li><a href="#tower-of-hanoi">Tower of Hanoi</a></li>
+<li><a href="#templated-functions">Templated Functions</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="week-1---writing-a-c-program">Week 1 - Writing a C++ Program</h1>
+<h2 id="some-basics-concepts">Some Basics concepts</h2>
+<ul>
+<li>In C++ a function declared with type <code>void</code> does not return a value.</li>
+<li>Every variable in C++ has to be associated with a specific type.</li>
+<li>When you write a C++ program, the program begins when the operating system calls the function <code>main()</code>.</li>
+<li>A class can consist of multiple member data variables of different types, but each type must be specified when the class is defined.</li>
+<li>The member functions of a class always have access to every member data variable of that class.</li>
+</ul>
+<h2 id="making-comments-in-c">Making Comments in C++</h2>
+<p>Single-line comments with <code>//</code></p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment">// A single-line comment can appear at the end of a line.</span>
+
+<span class="token comment">// Single-line comments can also appear by themselves on a line.</span>
+</code></pre>
+<p>Multi-line comments with <code>/* */</code></p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* This is a multi-line comment.
+   It will continue for as many lines as necessary
+   until it's closed with the closing marker. */</span>
+
+<span class="token keyword">int</span> y <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="if-else">If-else</h2>
+<p>Basic structure:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>condition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// true case</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// false case</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>If-else combination 1:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span>condition1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>condition2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>condition3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// If none of the other conditions were met...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>If-else combination 2:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This will execute</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&gt;</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This will execute</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">&gt;</span> <span class="token number">50</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This will execute</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This is the only section that won't execute!</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="ternary-operator">ternary operator</h3>
+<p>You should also be aware of the strange-looking “ternary operator,” also called the “conditional operator,” which is actually a combination of two operators, “?” and “:” (question mark and colon). The basic format for this syntax is:</p>
+<p>[Boolean-valued condition] ? [expression to evaluate if true] : [expression to evaluate if false]</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">// Since (5&lt;10) is true, the expression before the colon will be selected, which is 1.</span>
+<span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">5</span> <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token comment">// Now x is equal to 1.</span>
+
+<span class="token comment">// Note, the following syntax is NOT allowed in C++, which is why the ternary operator can be useful in these cases:</span>
+<span class="token keyword">int</span> y <span class="token operator">=</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token operator">&lt;</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+</code></pre>
+<h2 id="comparison-operators-and-arithmetic-operators">Comparison Operators and Arithmetic Operators</h2>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">&lt;=</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"3 is less than or equal to 4"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  x <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment">// This increases x by 2. It's the same as writing: x = x + 2;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"x should be 5 now: "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>3 is less than or equal to 4
+x should be 5 now: 5
+</code></pre>
+<h2 id="type-casting">Type Casting</h2>
+<p>An important concept to understand in C++ is “casting.” This is the phenomenon where a value is automatically converted to a different type in order to allow an operation to continue. For example, if you try to add together a floating point <strong>double</strong> value and an integer <strong>int</strong> value, the int will be converted to double first, and then the result of the addition will have type double as well. But if you save a double value to an int variable, the floating point value will be truncated to an integer! For example:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword">double</span> y <span class="token operator">=</span> <span class="token number">3.5</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"This result will be a double with value 5.5: "</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>x<span class="token operator">+</span>y<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token keyword">int</span> z <span class="token operator">=</span> x<span class="token operator">+</span>y<span class="token punctuation">;</span> <span class="token comment">// This expression is calculated as a double, but then it's cast back to int!</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"This result will be an int with value 5: "</span> <span class="token operator">&lt;&lt;</span> z <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>This result will be a double with value 5.5: 5.5
+This result will be an int with value 5: 5
+</code></pre>
+<p>It’s also the case that various values can be cast to the Boolean  <strong>bool</strong> type. So, they can be used as a condition. For example, usually, nonzero numeric values will be considered  <strong>true</strong>, and zero will be considered  <strong>false</strong>.</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"You won't see this text."</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"You WILL see this text!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>You WILL see this text!
+</code></pre>
+<p>You need to be aware that casts are happening invisibly in your code! Sometimes this can cause hard-to-find bugs. If you want to read more details about the casting operation, especially if you are curious about a debugging situation later, see these references:</p>
+<p>A more detailed primer on the casting topic:  <a href="http://www.cplusplus.com/doc/tutorial/typecasting/" title="C++ Tutorial: Type casting">http://www.cplusplus.com/doc/tutorial/typecasting/</a></p>
+<p>In-depth documentation:  <a href="https://en.cppreference.com/w/cpp/language/implicit_conversion" title="Implicit Conversions">https://en.cppreference.com/w/cpp/language/implicit_conversion</a></p>
+<h2 id="block-scope">Block Scope</h2>
+<p>After viewing the lecture about stack memory, you should be already have an intuitive idea about how  <strong>block scope</strong>  works. The idea is that certain blocks of code, signified by  <strong>{ }</strong>, create an inner stack on top of the previous stack, which can hide the pre-existing values. The lifetime of stack variables inside a block is called the variable’s  <strong>scope</strong>. Variables created on the stack inside the inner block are only in existence for the duration of the block. When the block ends, the inner stack is removed, and the pre-existing values in the outer scope are available again (because they are still in scope!).</p>
+<p>Here is an example:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  
+  <span class="token comment">// You can actually make an inner scope block anywhere in a function.</span>
+  <span class="token comment">// Let's do it to show how scope works.</span>
+  
+  <span class="token comment">// In the initial, outer scope:</span>
+  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Outer scope value of x (should be 2): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token comment">// Create an inner scope and make a new variable with the name "x".</span>
+  <span class="token comment">// This is not an error! We can redeclare x because of the inner scope.</span>
+  <span class="token comment">// Also, make an extra variable named "y".</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> y <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Inner scope vaue of x (should be 3): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Inner scope vaue of y (should be 4): "</span> <span class="token operator">&lt;&lt;</span> y <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// Now that the inner block has closed, the inner x and y are gone.</span>
+  <span class="token comment">// The original x variable is still on the stack, and it has its old value:</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Outer scope value of x (should be 2): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token comment">// We can't refer to y here, because it doesn't exist in this scope at all!</span>
+  <span class="token comment">// If you un-comment this line, there will be a compile error.</span>
+  <span class="token comment">// std::cout &lt;&lt; "This line causes an error because y doesn't exist: " &lt;&lt; y &lt;&lt; std::endl;</span>
+  
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Outer scope value of x (should be 2): 2 
+Inner scope vaue of x (should be 3): 3 
+Inner scope vaue of y (should be 4): 4 
+Outer scope value of x (should be 2): 2
+</code></pre>
+<p>Some keywords like <strong>if</strong> can have a block in { } afterwards, which does create an inner block scope for the duration of the conditional block:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Outer scope value of x (should be 2): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>true<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Inner scope vaue of x (should be 3): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Outer scope value of x (should be 2): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Outer scope value of x (should be 2): 2
+Inner scope vaue of x (should be 3): 3 
+Outer scope value of x (should be 2): 2
+</code></pre>
+<h3 id="for-loops">for loops</h3>
+<p>The  <strong>for</strong> loop is a common loop type that lets you specify an iteration variable, a range for that variable, and an increment instruction. The syntax is:</p>
+<p><strong>for (</strong> <strong><em>declaration</em></strong> <strong>;</strong> <strong><em>condition</em></strong> <strong>;</strong> <strong><em>increment operation</em></strong> <strong>) {</strong> <strong><em>loop body</em></strong> <strong>}</strong></p>
+<p>Be careful about whether you are redeclaring the iteration variable at block scope or not! Here’s an example:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  
+  <span class="token comment">// outer scope version of "x" to show the for-loop block scoping</span>
+  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"[Outside the loop] x is now (should be -1): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token comment">// The for loop lets us declare a variable in the first part of the</span>
+  <span class="token comment">// loop statement, which will belong to the inner block scope:</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> x <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token punctuation">;</span> x<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"[Inside the loop] x is now: "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// The outer scope x is still -1</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"[Outside the loop] x is now (should be -1): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token comment">// This version doesn't redeclare x, so it just inherits access to the</span>
+  <span class="token comment">// same x variable from the outer scope. This modifies the outer x directly!</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> x <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token punctuation">;</span> x<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"[Inside the loop] x is now: "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// In the last iteration where the condition x&lt;=2 was true, x had the value 2.</span>
+  <span class="token comment">// After that iteration, x was incremented one more time and became 3.</span>
+  <span class="token comment">// Then the condition was false and the loop body did not execute.</span>
+  <span class="token comment">// Afterwards, the outer scope x is still 3 because the loop modified it.</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"[Outside the loop] x is now (should be 3): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>[Outside the loop] x is now (should be -1): -1
+[Inside the loop] x is now: 0 
+[Inside the loop] x is now: 1 
+[Inside the loop] x is now: 2 
+[Outside the loop] x is now (should be -1): -1 
+[Inside the loop] x is now: 0 
+[Inside the loop] x is now: 1 
+[Inside the loop] x is now: 2 
+[Outside the loop] x is now (should be 3): 3
+</code></pre>
+<h3 id="while-loops">while loops</h3>
+<p>Another loop is the simple  <strong>while</strong>  loop, which has this syntax:</p>
+<p><strong>while (</strong> <strong><em>condition</em></strong> <strong>) {</strong> <strong><em>loop body</em></strong> <strong>}</strong></p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"This should show 0, 1, 2, 3:"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">&lt;=</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"x is now: "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    x<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment">// increment x by 1</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>This should show 0, 1, 2, 3: 
+x is now: 0 
+x is now: 1 
+x is now: 2 
+x is now: 3
+</code></pre>
+<h3 id="preview-modern-range-based-for-loops">Preview: Modern “range-based” for loops</h3>
+<p>You might see another very common type of  <strong>for</strong>  loop in recent C++ code, that has this syntax:</p>
+<p><strong>for (</strong> <strong><em>temporary variable declaration</em></strong> <strong>:</strong> <strong><em>container</em></strong> <strong>) {</strong> <strong><em>loop body</em></strong> <strong>}</strong></p>
+<p>We’ll wait to talk more about that in a later reading lesson.</p>
+<h2 id="declaring-a-class">Declaring a Class</h2>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span>  <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token comment">// You should define Pair here:</span>
+<span class="token comment">// (Use as many lines as you need!)</span>
+class Pair <span class="token punctuation">{</span>
+  public<span class="token punctuation">:</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// This main() function will help you test your work.</span>
+<span class="token comment">// Click Run to see what happens.</span>
+<span class="token comment">// When you're sure you're finished, click Submit for grading</span>
+<span class="token comment">// with our additional hidden tests.</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Pair p<span class="token punctuation">;</span>
+  p<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+  p<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">.</span>a <span class="token operator">+</span> p<span class="token punctuation">.</span>b <span class="token operator">==</span> p<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Success!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"p.sum() returns "</span> <span class="token operator">&lt;&lt;</span> p<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" instead of "</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>p<span class="token punctuation">.</span>a <span class="token operator">+</span> p<span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="week-2---understanding-the-c-memory-model">Week 2 - Understanding the C++ Memory Model</h1>
+<h2 id="key-concepts">Key Concepts</h2>
+<ul>
+<li>Pointers and dereferencing</li>
+<li>Local (stack) memory</li>
+<li>Allocated (heap) memory</li>
+</ul>
+<p>Every C++ variable has four things:</p>
+<ul>
+<li>A name</li>
+<li>A type</li>
+<li>A value</li>
+<li>A location in memory (= memory address)</li>
+</ul>
+<p>Example: <code>int primeNumber = 7</code></p>
+<p>To retrieve the memory address, we can use <code>&amp;</code> operator:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+	
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Value: "</span> <span class="token operator">&lt;&lt;</span> num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Address: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Output:</p>
+<pre class=" language-bash"><code class="prism  language-bash">Value: 7
+Address: 0x7ffcd9a4c224
+</code></pre>
+<h2 id="stack-memory">Stack Memory</h2>
+<p>By default, every variable in C++ is place in <strong>stack memory</strong>.</p>
+<p>Stack memory is associated with the <strong>current function</strong> and the memory’s life-cycle is tied to the function:</p>
+<ul>
+<li>When the function returns / ends, the stack memory of that function is released.</li>
+</ul>
+<p>Stack memory always starts from high address (e.g. <code>0xffff00f0</code>) and grows down towards <code>0</code>.</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span>  <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">void</span>  <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" x in foo(): "</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"&amp;x in foo(): "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>x <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span>  <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" num in main(): "</span> <span class="token operator">&lt;&lt;</span> num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"&amp;num in main(): "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+	<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span>  <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Expected:</p>
+<ul>
+<li>the memory address of <code>num</code> in <code>main()</code> is larger than that of <code>x</code> in <code>foo()</code> because the former is allocated first in the program.</li>
+</ul>
+<p>Output</p>
+<pre><code> num in main(): 7
+&amp;num in main(): 0x7ffdefd85b74
+ x in foo(): 42
+&amp;x in foo(): 0x7ffdefd85b54
+</code></pre>
+<h2 id="pointer">Pointer</h2>
+<p>A point is a variable that stores the memory address of the data.</p>
+<ul>
+<li>Simply put: pointers are a level of indirection from the data</li>
+</ul>
+<p>In C++, a pointer is define by adding an <code>*</code> to the type of the variable.</p>
+<ul>
+<li>Integer pointer: <code>int * p = &amp;num;</code></li>
+</ul>
+<h2 id="dereference-operator">Dereference Operator</h2>
+<p>Given a pointer, a level of indirection can be remove with the dereference operator <code>*</code></p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token operator">*</span> p <span class="token operator">=</span> <span class="token operator">&amp;</span>num<span class="token punctuation">;</span>		<span class="token comment">// store the memory address of num in a pointer</span>
+<span class="token keyword">int</span> value_in_num <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>	<span class="token comment">// retrieve the value from a pointer</span>
+<span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>	<span class="token comment">// change the value of num with its pointer</span>
+</code></pre>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ * C++ program printing various memory values with references and pointers.
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" num: "</span> <span class="token operator">&lt;&lt;</span>  num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"&amp;num: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&amp;</span>num<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" p: "</span> <span class="token operator">&lt;&lt;</span>  p <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"&amp;p: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>p <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"*p: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>p <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"*p changed to 42"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span> 
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" num: "</span> <span class="token operator">&lt;&lt;</span>  num <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code> num: 7
+&amp;num: 0x7fff6f060a9c
+ p: 0x7fff6f060a9c
+&amp;p: 0x7fff6f060a90
+*p: 7
+*p changed to 42
+ num: 42
+</code></pre>
+<h2 id="heap-memory">Heap Memory</h2>
+<p>Heap memory allows us to create memory <strong>independent</strong> of the life-cycle of a function.</p>
+<p>If memory needs to exist for longer than the life-cycle of the function, we must use <strong>heap memory</strong>.</p>
+<ul>
+<li>The <em><strong>only</strong></em> way to create heap memory in C++ is with the <code>new</code> operator.<br>
+It returns a <strong>pointer</strong> to the memory storing the data - <em><strong>not</strong></em> an instance of the data itself.</li>
+</ul>
+<p>The code below allocates two chunks of memory:</p>
+<ul>
+<li>Memory to store an <strong>integer pointer</strong> on the <strong>stack</strong></li>
+<li>Memory to store an <strong>integer</strong> on the <strong>heap</strong></li>
+</ul>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">int</span> <span class="token operator">*</span> numPtr <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ * C++ program printing various memory values using heap-allocated memory.
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> <span class="token operator">*</span>numPtr <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"*numPtr: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>numPtr <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" numPtr: "</span> <span class="token operator">&lt;&lt;</span>  numPtr <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"&amp;numPtr: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>numPtr <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token operator">*</span>numPtr <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"*numPtr assigned 42."</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"*numPtr: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>numPtr <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">" numPtr: "</span> <span class="token operator">&lt;&lt;</span>  numPtr <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"&amp;numPtr: "</span> <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>numPtr <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>*numPtr: 0
+ numPtr: 0xcefc20
+&amp;numPtr: 0x7ffc0441d358
+*numPtr assigned 42.
+*numPtr: 42
+ numPtr: 0xcefc20
+&amp;numPtr: 0x7ffc0441d358
+</code></pre>
+<h3 id="cs-new-operator">C++'s New Operator</h3>
+<p>The <code>new</code> operator in C++ will always do three things:</p>
+<ol>
+<li>Allocate memory on the heap for the data structure</li>
+<li>Initialize the data structure</li>
+<li>Return a pointer to the start of the data structure</li>
+</ol>
+<p>The memory is only ever reclaimed by the system when the pointer is passed to the <code>delete</code> operator.</p>
+<h3 id="null-pointer-nullptr">Null Pointer (nullptr)</h3>
+<p>The C++ keyword <code>nullptr</code> is a pointer that points to the memory address <code>0x0</code>.</p>
+<ul>
+<li><code>nullptr</code> represents a pointer to “nowhere”</li>
+<li>Address <code>0x0</code> is reserved and never used by the system</li>
+<li>Address <code>0x0</code> will always generate an “segmentation fault” when accessed.</li>
+<li>Calls to <code>delete 0x0</code> are ignored</li>
+</ul>
+<h3 id="arrow-operator--">Arrow Operator (-&gt;)</h3>
+<p>When an object is stored via a pointer, access can be made to member functions using the <code>-&gt;</code> operator:</p>
+<pre class=" language-c"><code class="prism ++ language-c">c<span class="token operator">-&gt;</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// is the same as</span>
+<span class="token punctuation">(</span><span class="token operator">*</span>c<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="heap-memory-puzzles">Heap Memory Puzzles</h3>
+<h4 id="puzzle-1">Puzzle 1</h4>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout<span class="token punctuation">;</span>
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span>  i <span class="token operator">=</span>  <span class="token number">2</span><span class="token punctuation">,</span>  j <span class="token operator">=</span>  <span class="token number">4</span><span class="token punctuation">,</span>  k <span class="token operator">=</span>  <span class="token number">8</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token operator">&amp;</span>i<span class="token punctuation">,</span> <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">&amp;</span>j<span class="token punctuation">,</span> <span class="token operator">*</span>r <span class="token operator">=</span> <span class="token operator">&amp;</span>k<span class="token punctuation">;</span>
+
+  k <span class="token operator">=</span> i<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> i <span class="token operator">&lt;&lt;</span> j <span class="token operator">&lt;&lt;</span> k <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>p <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>q <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>r <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+  p <span class="token operator">=</span> q<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> i <span class="token operator">&lt;&lt;</span> j <span class="token operator">&lt;&lt;</span> k <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>p <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>q <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>r <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+  <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token operator">*</span>r<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> i <span class="token operator">&lt;&lt;</span> j <span class="token operator">&lt;&lt;</span> k <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>p <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>q <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>r <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Output:</p>
+<pre><code>242242
+242442
+222222
+</code></pre>
+<h4 id="puzzle-2">Puzzle 2</h4>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ * C++ puzzle program.  Try to figure out the result before running!
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout<span class="token punctuation">;</span>
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> <span class="token operator">*</span>x <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> <span class="token operator">&amp;</span>y <span class="token operator">=</span> <span class="token operator">*</span>x<span class="token punctuation">;</span>
+  y <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+
+  cout <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+  cout <span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>y <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> y <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+  <span class="token comment">// This line gives a compiling error</span>
+  <span class="token comment">// cout &lt;&lt; *y &lt;&lt; endl;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Output</p>
+<pre><code>0x7ffd87706000
+0x20ddc20
+4
+0x20ddc20
+4
+</code></pre>
+<h4 id="puzzle-3">Puzzle 3</h4>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ * C++ puzzle program.  Try to figure out the result before running!
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout<span class="token punctuation">;</span>
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token operator">*</span>q<span class="token punctuation">;</span>
+  p <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+  q <span class="token operator">=</span> p<span class="token punctuation">;</span>
+  <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>p <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+  q <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+  <span class="token operator">*</span>q <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>p <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+  cout <span class="token operator">&lt;&lt;</span> <span class="token operator">*</span>q <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Output</p>
+<pre><code>8
+8
+9
+</code></pre>
+<h4 id="puzzle-4">Puzzle 4</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">/**
+ * C++ puzzle program.  Try to figure out the result before running!
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout<span class="token punctuation">;</span>
+using std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> <span class="token operator">*</span>x<span class="token punctuation">;</span>
+  <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  x <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    x<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  delete<span class="token punctuation">[</span><span class="token punctuation">]</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="headers-and-source-files-in-c">Headers and Source Files in C++</h2>
+<p><code>.h</code> files are “header files”. These usually have the definitions of objects and declarations of global functions.</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">/**
+ * Simple C++ class for representing a Cube.
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token comment">// All header (.h) files start with "#pragma once":</span>
+<span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+
+<span class="token comment">// A class is defined with the `class` keyword, the name</span>
+<span class="token comment">// of the class, curly braces, and a required semicolon</span>
+<span class="token comment">// at the end:</span>
+class Cube <span class="token punctuation">{</span>
+  public<span class="token punctuation">:</span>  <span class="token comment">// Public members:</span>
+    <span class="token keyword">double</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> <span class="token function">getSurfaceArea</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">setLength</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  private<span class="token punctuation">:</span> <span class="token comment">// Private members:</span>
+    <span class="token keyword">double</span> length_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>#</code> are special commands for the compiler, called pre-processor directives.</p>
+<p><code>#pragma once</code> prevents the header file from being automatically included multiple times in a complex project, which could cause errors.</p>
+<p>Only the signature of the function is given, to declare its input argument types and return type. Instead, the function will be defined in the <code>.cpp</code> source code file.</p>
+<p><code>.cpp</code> files are often called the implementation files, or simply the “source files”. This is where most function definitions and main program logic go.</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ * Simple C++ class for representing a Cube.
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+
+<span class="token keyword">double</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> length_ <span class="token operator">*</span> length_ <span class="token operator">*</span> length_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">double</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getSurfaceArea</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token number">6</span> <span class="token operator">*</span> length_ <span class="token operator">*</span> length_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">setLength</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  length_ <span class="token operator">=</span> length<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>#include "Cube.h"</code> includes all the text from the <code>Cube.h</code> file in the same directory.</p>
+<p>The <code>main.cpp</code> file</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">/**
+ * C++ code for creating a Cube of length 2.4 units.
+ * - See ../cpp-std/main.cpp for a similar program with print statements.
+ * 
+ * @author
+ *   Wade Fagen-Ulmschneider &lt;waf@illinois.edu&gt;
+ */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Cube c<span class="token punctuation">;</span>
+
+  c<span class="token punctuation">.</span><span class="token function">setLength</span><span class="token punctuation">(</span><span class="token number">3.48</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">double</span> volume <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Volume: "</span> <span class="token operator">&lt;&lt;</span> volume <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>When you write <code>#include &lt;iostream&gt;</code>, the compiler will look for the <code>iostream</code> header file in a system-wide library path that is located outside of your current directory.</p>
+<p>You shouldn’t use <code>#include</code> to literally include one <code>.cpp</code> file in another, because the function definitions in the <code>.cpp</code> file will be compiled separately and then linked to the code from the <code>main.cpp</code> file.</p>
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/WWEDqDMkEemplgpfqc6zSA_81f646b7ba6aa3a7d1e2ae99397b5f25_compilation_chart_lo-res.png?expiry=1583798400000&amp;hmac=IFG4N6TjG08zA8wy6CaCYVEe6xLAV83wBpbaIntBLC4" alt="How a C++ compiler works"></p>
+<h2 id="week-2-quiz-remarks">Week 2 Quiz Remarks</h2>
+<h3 id="question-1">Question 1</h3>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token operator">*</span>i<span class="token punctuation">;</span>
+i <span class="token operator">=</span> new  <span class="token keyword">int</span><span class="token punctuation">;</span>
+<span class="token operator">*</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code> i: 0x55a50d9feeb0
+&amp;i: 0x7ffe33f66180
+*i: 0
+</code></pre>
+<p>The variable type is a pointer to an integer, <code>int *</code>.<br>
+The type of a pointer includes the type of the value in the memory location that it is pointing to.</p>
+<p>Even though <code>p</code> points to a memory address containing the integer value 0, <strong>the value of the pointer is the memory address itself</strong>.</p>
+<h3 id="question-3">Question 3</h3>
+<p>Suppose we are writing the following function that is intended to return a pointer to a location in memory holding an integer value initialized to zero.<br>
+How should variable <code>i</code> be declared?</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token operator">*</span><span class="token function">allocate_an_integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// declare variable i here</span>
+    <span class="token keyword">int</span> <span class="token operator">*</span> i <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+    <span class="token operator">*</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The variable <code>i</code> should be a pointer to a memory location to an integer allocated from the heap so the <strong>memory location continues to be allocated</strong> after the function has returned.</p>
+<h3 id="question-4">Question 4</h3>
+<p>Suppose we have this alternative function that returns a pointer to a memory location to an integer value of zero.</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token operator">*</span><span class="token function">allocate_an_integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>i<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token operator">*</span>j<span class="token punctuation">;</span>
+    j <span class="token operator">=</span> <span class="token function">allocate_an_integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token operator">*</span>j<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>What value is variable k assigned and why?</p>
+<p>Variable <code>i</code> is allocated with a memory location on the <strong>stack</strong>. When <code>allocate_an_integer()</code> returns, its memory on the <strong>stack</strong> including the memory holding the value of <code>i</code> is <strong>freed</strong> and may be used for other purposes, and may be overwritten with a new value.</p>
+<h3 id="question-8">Question 8</h3>
+<p><code>j</code> is a direct reference to the same actual integer that <code>i</code> points to indirectly.</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token operator">*</span>i <span class="token operator">=</span> new <span class="token keyword">int</span><span class="token punctuation">;</span>
+<span class="token operator">*</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token operator">&amp;</span>j <span class="token operator">=</span> <span class="token operator">*</span>i<span class="token punctuation">;</span>
+j<span class="token operator">++</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code> i: 0x558761750eb0
+&amp;i: 0x7fff4980a658
+*i: 1
+ j: 1
+&amp;j: 0x558761750eb0
+</code></pre>
+<h2 id="week-2-challenge">Week 2 Challenge</h2>
+<p>Create a function that returns a pointer to an instance on the heap.</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token comment">// This class Pair has already been defined for you.</span>
+<span class="token comment">// (You may not change this definition.)</span>
+class Pair <span class="token punctuation">{</span>
+public<span class="token punctuation">:</span>
+  <span class="token keyword">int</span> first<span class="token punctuation">,</span> second<span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    first <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Congratulations! The check() method of the Pair class \n has executed. (But, this isn't enough to guarantee \n that your code is correct.)"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Insert your declaration and implementation of the function pairFactory()</span>
+<span class="token comment">// below, by replacing "..." with proper C++ code. Be sure to declare the</span>
+<span class="token comment">// function type to return a pointer to a Pair.</span>
+
+Pair <span class="token operator">*</span><span class="token function">pairFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Pair <span class="token operator">*</span>p <span class="token operator">=</span> new Pair<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> p<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Your function should be able to satisfy the tests below. You should try</span>
+<span class="token comment">// some other things to convince yourself. If you have a bug in this problem,</span>
+<span class="token comment">// the usual symptom is that after you submit, the grader will crash with a</span>
+<span class="token comment">// system error. :-)</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  Pair <span class="token operator">*</span>p<span class="token punctuation">;</span>
+  p <span class="token operator">=</span> <span class="token function">pairFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// This function call should work without crashing:</span>
+  p<span class="token operator">-&gt;</span><span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// Deallocating the heap memory. (Assuming it was made on the heap!)</span>
+  delete p<span class="token punctuation">;</span>
+
+  std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"If you can see this text, the system hasn't crashed yet!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>  
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="week-3---developing-c-classes">Week 3 - Developing C++ Classes</h1>
+<h2 id="key-concepts-1">Key Concepts</h2>
+<ul>
+<li>Constructors and destructors</li>
+<li>Methods and operators</li>
+<li>Access through pointers and references</li>
+</ul>
+<h2 id="class-constructors">Class Constructors</h2>
+<h3 id="automatic-default-constructor">Automatic Default Constructor</h3>
+<p>If we do not provide any custom constructors, the C++ compiler provides an <strong>automatic default constructor</strong> for our class.<br>
+The automatic default constructor will only initialize all member variables to their <strong>default values</strong>.</p>
+<p>If <strong>any</strong> custom constructor is defined, an automatic default constructor is <strong>not</strong> defined.</p>
+<h3 id="custom-default-constructor">Custom Default Constructor</h3>
+<p>The simplest constructor we can provide is a <strong>custom default constructor</strong> that specifies the state of the object when the object is constructed.<br>
+We define one by creating:</p>
+<ul>
+<li>A member function with the <strong>same name of the class</strong></li>
+<li>The function takes <strong>zero parameters</strong>.</li>
+<li>The function <strong>does not have a return type.</strong></li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// custom default constructor</span>
+</code></pre>
+<p>Inside the header file <code>Cube.h</code>, the code should look like:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	class Cube<span class="token punctuation">{</span>
+		public<span class="token punctuation">:</span>
+			<span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">// Custom default constructor</span>
+			
+			<span class="token keyword">double</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">double</span> <span class="token function">getSurfaceArea</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">void</span> <span class="token function">setLength</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		
+		private<span class="token punctuation">:</span>
+			<span class="token keyword">double</span> length_<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The <code>main</code> function looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube c<span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Volume: "</span> <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">.</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Volume: 1
+</code></pre>
+<h3 id="custom-constructors">Custom Constructors</h3>
+<p>We can also specify custom, non-default constructors that require client code to supply arguments:</p>
+<pre class=" language-c"><code class="prism  language-c">Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span>
+<span class="token comment">// one-argument ctor specifying initial length</span>
+</code></pre>
+<p>Inside the header file <code>Cube.h</code>, the code should look like:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	class Cube<span class="token punctuation">{</span>
+		public<span class="token punctuation">:</span>
+			<span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">// Custom default constructor</span>
+			<span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// One-argument constructor</span>
+			
+			<span class="token keyword">double</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">double</span> <span class="token function">getSurfaceArea</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">void</span> <span class="token function">setLength</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		
+		private<span class="token punctuation">:</span>
+			<span class="token keyword">double</span> length_<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> length<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<p>The <code>main</code> function looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Volume: "</span> <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">.</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Volume: 8
+</code></pre>
+<h2 id="copy-constructors">Copy Constructors</h2>
+<p>In C++, a <strong>copy constructor</strong> is a special constructor that exists to make a copy of any existing <strong>object</strong>.</p>
+<h3 id="automatic-copy-constructor">Automatic Copy Constructor</h3>
+<p>If we do not provide a custom copy constructor, the C++ compiler provides an <strong>automatic copy constructor</strong> for our class.</p>
+<p>The automatic copy constructor will copy the contents of all member variables.</p>
+<h3 id="custom-copy-constructor">Custom Copy Constructor</h3>
+<p>A custom copy constructor is:</p>
+<ul>
+<li>A class constructor</li>
+<li>Has exactly one argument
+<ul>
+<li>The argument must be constant reference of the same type as the class.</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+</code></pre>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	<span class="token comment">// Custome constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Custome copy constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<h3 id="copy-constructor-invocation">Copy Constructor Invocation</h3>
+<p>Often, copy constructors are invoked automatically:</p>
+<ul>
+<li>Passing an object as a parameter (by value)</li>
+<li>Returning an object from a function (by value)</li>
+<li>Initializing a new object</li>
+</ul>
+<h4 id="example-1">Example 1</h4>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	<span class="token comment">// Custome constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Default constructor invoked!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Custome copy constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Copy constructor invoked!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<p>The <code>main.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+using uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span>Cube cube<span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token comment">// Nothing</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube c<span class="token punctuation">;</span>
+	<span class="token function">foo</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Default constructor invoked!
+Copy constructor invoked!
+</code></pre>
+<h4 id="example-2">Example 2</h4>
+<p>The <code>main.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"../Cube.h"</span></span>
+using uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube<span class="token punctuation">;</span>
+
+Cube <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	Cube c<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> c<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube c2 <span class="token operator">=</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Default constructor invoked!
+Copy constructor invoked!
+Copy constructor invoked!
+</code></pre>
+<p><img src="https://i.imgur.com/618MNlS.png" alt="enter image description here"></p>
+<h4 id="example-3">Example 3</h4>
+<p>The <code>main.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"../Cube.h"</span></span>
+using uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube c<span class="token punctuation">;</span>
+	Cube myCube <span class="token operator">=</span> c<span class="token punctuation">;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Default constructor invoked!
+Copy constructor invoked!
+</code></pre>
+<h4 id="example-4">Example 4</h4>
+<p>The <code>main.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"../Cube.h"</span></span>
+using uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube c<span class="token punctuation">;</span>
+	Cube myCube<span class="token punctuation">;</span>
+	
+	<span class="token comment">// The following is an assignment, not a construction of object</span>
+	myCube <span class="token operator">=</span> c<span class="token punctuation">;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Default constructor invoked!
+Default constructor invoked!
+</code></pre>
+<h2 id="copy-assignment-operator">Copy Assignment Operator</h2>
+<p>In C++, a <strong>copy assignment operator</strong> defines the behavior when an object is copied using the assignment operator <code>=</code>.</p>
+<h3 id="copy-constructor-vs.-assignment">Copy Constructor vs. Assignment</h3>
+<p>A copy constructor <strong>creates a new object</strong> (constructor).</p>
+<p>An assignment operator assigns a <strong>value to an existing object</strong>.</p>
+<ul>
+<li>An assignment operator is always called on an object that has already been constructed.</li>
+</ul>
+<p>An object can only be created once. To change an object that has been created, we need to use assignment.</p>
+<h3 id="automatic-assignment-operator">Automatic Assignment Operator</h3>
+<p>If an assignment operator is not provided, the C++ compile provides an automatic assignment operator.</p>
+<p>The automatic assignment operator will copy the contents of all member variables.</p>
+<h3 id="custom-assignment-operator">Custom Assignment Operator</h3>
+<p>A custom assignment operator:</p>
+<ul>
+<li>Is a public member function of the class</li>
+<li>Has the function name <code>operator=</code></li>
+<li>Has a return value of a reference of the class’ type</li>
+<li>Has exactly one argument
+<ul>
+<li>The argument must be const reference of the class’ type</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube <span class="token operator">&amp;</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span>operator<span class="token operator">=</span><span class="token punctuation">(</span>constr Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span>
+</code></pre>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+namespace uiuc <span class="token punctuation">{</span>
+
+	<span class="token comment">// Custome constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Default constructor invoked!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custome copy constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Copy constructor invoked!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custom assignment operator</span>
+	Cube <span class="token operator">&amp;</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span>operator<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Assignment operator invoked!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+		<span class="token comment">// Always return a dereference value of this</span>
+		<span class="token comment">// This is the instance of the class itself</span>
+		<span class="token keyword">return</span> <span class="token operator">*</span>this<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<h4 id="example-1-1">Example 1</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+using uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube c<span class="token punctuation">;</span>
+	Cube myCube<span class="token punctuation">;</span>
+
+	myCube <span class="token operator">=</span> C<span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Default constructor invoked!
+Default constructor invoked!
+Assignment operator invoked!
+</code></pre>
+<p>So there’s a small nuanced difference b/w a copy constructor and an assignment operator.<br>
+Their functionality is largely the same, that their job is to copy the contents of one instance of a class to another.<br>
+The invocation of an assignment operator means the object already exists and doesn’t need constructed.</p>
+<h2 id="variable-storage">Variable Storage</h2>
+<p>In C++, an instance of a variable can be stored directly in memory, accessed by a pointer, <strong>or</strong> accessed by a reference.</p>
+<p><img src="https://i.imgur.com/2Fs61xF.png" alt="enter image description here"></p>
+<h3 id="direct-storage">Direct Storage</h3>
+<p>By default, variables are stored directly in memory.</p>
+<ul>
+<li>The <strong>type</strong> of a variable has no modifiers.</li>
+<li>The object takes up exactly its size in memory.</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube c<span class="token punctuation">;</span>	<span class="token comment">// Stores a Cube in memory</span>
+<span class="token keyword">int</span> i<span class="token punctuation">;</span>	<span class="token comment">// Stores an integer in memory</span>
+uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HLSAPixel p<span class="token punctuation">;</span>	<span class="token comment">// Stores a pixel in memory</span>
+</code></pre>
+<h3 id="storage-by-pointer">Storage by Pointer</h3>
+<ul>
+<li>The <strong>type</strong> of a variable is modified with an asterisk <code>*</code></li>
+<li>A pointer takes a “memory address width” of memory (ex: 64 bits on a 64-bit system)</li>
+<li>The pointer “points” to the allocated space of the object</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube <span class="token operator">*</span>c	<span class="token comment">// Pointer to a Cube in memory</span>
+<span class="token keyword">int</span> <span class="token operator">*</span>i	<span class="token comment">// Pointer to an integer in memory</span>
+uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel <span class="token operator">*</span>p	<span class="token comment">// Pointer to a pixel in memory</span>
+</code></pre>
+<h3 id="storage-by-reference">Storage by Reference</h3>
+<ul>
+<li>A reference is an <strong>alias</strong> to existing memory and is denoted in the type with an ampersand <code>&amp;</code>.</li>
+<li>A reference <strong>does not store memory</strong> itself, it is only an alias to another variable.</li>
+<li>It takes zero memory.</li>
+<li>The alias must be assigned when the variable is initialized.</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube <span class="token operator">&amp;</span>c <span class="token operator">=</span> cube<span class="token punctuation">;</span>	<span class="token comment">// Alias to the variable 'cube'	</span>
+<span class="token keyword">int</span> <span class="token operator">&amp;</span>i <span class="token operator">=</span> count<span class="token punctuation">;</span>	<span class="token comment">// Alias to the varible 'i'</span>
+uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel <span class="token operator">&amp;</span>p<span class="token punctuation">;</span>	<span class="token comment">//Illegal! must alias sth when variable is initialized.</span>
+</code></pre>
+<p><img src="https://i.imgur.com/jSsadjY.png" alt="enter image description here"></p>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+namespace uiuc <span class="token punctuation">{</span>
+
+	<span class="token comment">// Custom one-parameter constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> length<span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Created $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custom copy constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length_<span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Created $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" via copy"</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custom assignment operator</span>
+	Cube <span class="token operator">&amp;</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span>operator<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length_<span class="token punctuation">;</span>
+		std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Transformed $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"-&gt; $"</span> <span class="token operator">&lt;&lt;</span> obj<span class="token punctuation">.</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+		<span class="token keyword">return</span> <span class="token operator">*</span>this<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<p>In computer science, instead of creating $$, these three operations create extra memories.</p>
+<h4 id="example-1---by-value">Example 1 - by value</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create a 1,000-valued cube</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// Transfer the cube</span>
+	Cube myCube <span class="token operator">=</span> c<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $1000
+Created $1000 via copy
+</code></pre>
+<p><img src="https://imgur.com/MWi5hk3.png" alt="enter image description here"></p>
+<h4 id="example-2---by-reference">Example 2 - by reference</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create a 1,000-valued cube</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// Transfer the cube</span>
+	Cube <span class="token operator">&amp;</span> myCube <span class="token operator">=</span> c<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $1000
+</code></pre>
+<p><img src="https://imgur.com/ihGbDOe.png" alt="enter image description here"></p>
+<h4 id="example-3---by-pointer">Example 3 - by pointer</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create a 1,000-valued cube</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// Transfer the cube</span>
+	Cube <span class="token operator">*</span> myCube <span class="token operator">=</span> <span class="token operator">&amp;</span>c<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $1000
+</code></pre>
+<p><img src="https://imgur.com/lyvx5ir.png" alt="enter image description here"></p>
+<h3 id="pass-by-______">Pass by ______</h3>
+<p>Identical to storage, arguments can be passed to functions in three different ways:</p>
+<ul>
+<li>Pass by value (default)</li>
+<li>Pass by pointer (modified with <code>*</code>)</li>
+<li>Pass by reference (modified with <code>&amp;</code>, acts as an alias)</li>
+</ul>
+<h4 id="example-1---by-value-1">Example 1 - by value</h4>
+<pre class=" language-c"><code class="prism  language-c">bool <span class="token function">sendCube</span><span class="token punctuation">(</span>Cube c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ... logic to send a Cube somewhere ,,,</span>
+	<span class="token keyword">return</span> True<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create a 1,000-valued cube</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token comment">// Send the cube to someone</span>
+	<span class="token function">sendCube</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $1,000
+Created $1,000 via copy
+</code></pre>
+<p><img src="https://imgur.com/6xhJBnM.png" alt="enter image description here"></p>
+<h4 id="example-2---by-reference-1">Example 2 - by reference</h4>
+<pre class=" language-c"><code class="prism  language-c">bool <span class="token function">sendCube</span><span class="token punctuation">(</span>Cube <span class="token operator">&amp;</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ... logic to send a Cube somewhere ,,,</span>
+	<span class="token keyword">return</span> True<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create a 1,000-valued cube</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token comment">// Send the cube to someone</span>
+	<span class="token function">sendCube</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $1,000
+</code></pre>
+<p><img src="https://imgur.com/y2iYg5u.png" alt="enter image description here"></p>
+<h4 id="example-3---by-pointer-1">Example 3 - by pointer</h4>
+<pre class=" language-c"><code class="prism  language-c">bool <span class="token function">sendCube</span><span class="token punctuation">(</span>Cube <span class="token operator">*</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ... logic to send a Cube somewhere ,,,</span>
+	<span class="token keyword">return</span> True<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create a 1,000-valued cube</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token comment">// Send the cube to someone</span>
+	<span class="token function">sendCube</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $1,000
+</code></pre>
+<p><img src="https://imgur.com/BY2nfE5.png" alt="enter image description here"></p>
+<h3 id="return-by-______">Return by ______</h3>
+<p>Similarly, values can be returned all three ways as well:</p>
+<ul>
+<li>Return by <strong>value</strong> (default)</li>
+<li>Return by <strong>pointer</strong> (modified with <code>*</code>)</li>
+<li>Return by <strong>reference</strong> (modified with <code>&amp;</code>, acts as an alias)
+<ul>
+<li>Never return a reference to a stack variable created on the stack of your current function!</li>
+</ul>
+</li>
+</ul>
+<h2 id="class-destructor">Class Destructor</h2>
+<p>When an instance of a class is cleaned up, the <strong>class destructor</strong> is the last call in a class’s life-cycle.</p>
+<p>An destructor should <strong>never</strong> be called directly. Instead, it is automatically called when the object’s memory is being reclaimed by the system:</p>
+<ul>
+<li>If the object is on the <strong>stack</strong>, when the function returns</li>
+<li>If the object is on the <strong>heap</strong>, when <code>delete</code> is used</li>
+</ul>
+<h3 id="automatic-default-destructor">Automatic Default Destructor</h3>
+<p>An <strong>automatic default destructor</strong> is added to your class if no other destructor is defined.<br>
+The only action of the automatic default destructuor is to call the default destructor of all member objects.</p>
+<h3 id="custom-destructor">Custom Destructor</h3>
+<p>To add custom behavior to the end-of-life of the function, a custom destructor can be defined as:</p>
+<ul>
+<li>A custom destructor is a member function.</li>
+<li>The function’s destructor is the name of the class, preceded by a tilde <code>~</code>.</li>
+<li>All destructors have zero arguments and no return type.</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">~</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">// Cutom destructor</span>
+</code></pre>
+<p>A custom destructor is essential when an object allocates an external resource that must be closed or freed when the object is destroyed. Examples:</p>
+<ul>
+<li>Heap memory</li>
+<li>Open files</li>
+<li>Shared memory</li>
+</ul>
+<p>The implementation file <code>Cube.cpp</code> looks like:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Cube.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+using namespace std<span class="token punctuation">;</span>
+
+namespace uiuc <span class="token punctuation">{</span>
+	<span class="token comment">// Default constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Created $1 (default)"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custom one-parameter constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">double</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> length<span class="token punctuation">;</span>
+		cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Created $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custom copy constructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length_<span class="token punctuation">;</span>
+		cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Created $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" via copy"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// Custom destructor</span>
+	Cube<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">~</span><span class="token function">Cube</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Destoryed $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token comment">// Custom assignment operator</span>
+	Cube <span class="token operator">&amp;</span> Cube<span class="token punctuation">:</span><span class="token punctuation">:</span>operator<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		length_ <span class="token operator">=</span> obj<span class="token punctuation">.</span>length_<span class="token punctuation">;</span>
+		cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Transformed $"</span> <span class="token operator">&lt;&lt;</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token string">"-&gt; $"</span> <span class="token operator">&lt;&lt;</span> obj<span class="token punctuation">.</span><span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+		<span class="token keyword">return</span> <span class="token operator">*</span>this<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<h4 id="example-1-2">Example 1</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token keyword">double</span> <span class="token function">cube_on_stack</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">cube_on_heap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Cube <span class="token operator">*</span> c1 <span class="token operator">=</span> new <span class="token function">Cube</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	Cube <span class="token operator">*</span> c2 <span class="token operator">=</span> new Cube<span class="token punctuation">;</span>
+	delete c1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">cube_on_stack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">cube_on_heap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">cube_on_stack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>Created $27
+Destoryed $27
+Created $1000
+Created $1 (default)
+Destoryed $1000
+Created $27
+Destoryed $27
+</code></pre>
+<h2 id="c-syntax-notes">C++ Syntax Notes</h2>
+<ol>
+<li>
+<p>Uninitialized Pointers, Segfaults, and Undefined Behavior<br>
+<a href="https://www.coursera.org/learn/cs-fundamentals-1/supplement/lIrXl/c-syntax-notes-uninitialized-pointers-segfaults-and-undefined-behavior">https://www.coursera.org/learn/cs-fundamentals-1/supplement/lIrXl/c-syntax-notes-uninitialized-pointers-segfaults-and-undefined-behavior</a></p>
+</li>
+<li>
+<p>The Modern Range-Based “for” Loop<br>
+<a href="https://www.coursera.org/learn/cs-fundamentals-1/supplement/AtqEE/c-syntax-notes-the-modern-range-based-for-loop">https://www.coursera.org/learn/cs-fundamentals-1/supplement/AtqEE/c-syntax-notes-the-modern-range-based-for-loop</a></p>
+</li>
+<li>
+<p>Unsigned Integer Types: Be Care<br>
+<a href="https://www.coursera.org/learn/cs-fundamentals-1/supplement/zGkwp/unsigned-integer-types-be-careful-updated-dec-16">https://www.coursera.org/learn/cs-fundamentals-1/supplement/zGkwp/unsigned-integer-types-be-careful-updated-dec-16</a></p>
+</li>
+</ol>
+<h2 id="quiz-remarks">Quiz Remarks</h2>
+<h3 id="question-3-1">Question 3</h3>
+<p>The <strong>assignment operator</strong> is a member function of the class of the target object, and this member function must be <strong>public</strong> in order for the assignment operator to be used in contexts outside of the class’s own implementation as shown in the example in this question.</p>
+<h3 id="question-9">Question 9</h3>
+<p><code>*this</code> is a pointer to the current object instance.</p>
+<p>In fact, members of the current object can be accessed as <code>this-&gt;membername</code> . For example, if you define a member function whose argument is the same name as a member variable, any use of that name in the local scope of the function refers to the argument and not the member variable, but you can still access the member variable as <code>this-&gt;membername</code> . Hence the following example works.</p>
+<pre class=" language-c"><code class="prism  language-c">class Just_a_double <span class="token punctuation">{</span>
+    <span class="token keyword">double</span> val<span class="token punctuation">;</span>
+public<span class="token punctuation">:</span>
+    <span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token keyword">double</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        this<span class="token operator">-&gt;</span>val <span class="token operator">=</span> val<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="week-4---engineering-c-software-solutions">Week 4 - Engineering C++ Software Solutions</h1>
+<h2 id="key-concepts-2">Key Concepts</h2>
+<ul>
+<li>Object-oriented design</li>
+<li>Templates</li>
+<li>Class hierarchies and inheritance</li>
+</ul>
+<h2 id="template-types">Template Types</h2>
+<p>A <strong>template type</strong> is a special type that can take on different types when the type is initialized. <code>std::vector</code> uses a template type.</p>
+<p><img src="https://imgur.com/ENYVfU4.png" alt="enter image description here"></p>
+<h3 id="stdvector">std::vector</h3>
+<p><code>std::vector</code> standard library class that provides the functionality of a dynamically growing array with a “templated” type.</p>
+
+<table>
+<thead>
+<tr>
+<th>Key ideas</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Define in</td>
+<td><code>#include &lt;vector&gt;</code></td>
+</tr>
+<tr>
+<td>Initialization</td>
+<td><code>std::vector&lt;T&gt; v;</code></td>
+</tr>
+<tr>
+<td>Add to (back) of array</td>
+<td><code>::push_back(T);</code></td>
+</tr>
+<tr>
+<td>Access specific element</td>
+<td><code>::operator[] (unsigned pos);</code></td>
+</tr>
+<tr>
+<td>Number of elements</td>
+<td><code>::size()</code></td>
+</tr>
+</tbody>
+</table><p>When initializing a “templated” type, the template type goes inside of <code>&lt; &gt;</code> at the end of the type name:</p>
+<pre class=" language-c"><code class="prism  language-c">std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">&gt;</span> v1<span class="token punctuation">;</span>
+std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> v2<span class="token punctuation">;</span>
+std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span>uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>Cube<span class="token operator">&gt;</span> v3<span class="token punctuation">;</span>
+</code></pre>
+<h4 id="example-1-3">Example 1</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;vector&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span>  <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;vector&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> v<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        v<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span> i <span class="token operator">*</span> i <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> v<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span>  <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> v<span class="token punctuation">;</span>
+	v<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	v<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	v<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> v<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> v<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> v<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span>  <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>2
+3
+5
+</code></pre>
+<h4 id="example-2-1">Example 2</h4>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span>  <span class="token string">&lt;vector&gt;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span>  <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span>  <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> v<span class="token punctuation">;</span>
+	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		v<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span> i <span class="token operator">*</span> i <span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> v<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span>  <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre><code>144
+</code></pre>
+<h2 id="tower-of-hanoi">Tower of Hanoi</h2>
+<p>Consider the Tower of Hanoi problem, where multiple cubes must be transferred to a new location is such a way that a larger cube cannot be placed on top of a smaller cube:</p>
+<p align="center"> 
+	<img src="https://imgur.com/OJh3MOl.png">
+</p>
+<h3 id="programmatic-structure">Programmatic Structure</h3>
+<p>The Tower of Hanoi problem involves three district entitles that must be represented in code:</p>
+<ol>
+<li>Game</li>
+<li>Stacks</li>
+<li>Cubes</li>
+</ol>
+<pre class=" language-coop"><code class="prism  language-coop">namespace uiuc {
+	class Cube {
+		public:
+		// Class constructor: 2 parameters
+		Cube(double length, HSLAPixel color);
+		
+		double getLength() const;
+		void setLength(double length);
+		
+		double getVolume() const;
+		double getSurfaceArea() const;
+
+		private:
+		double length_;
+		HSLAPixel color_;
+	}
+}
+</code></pre>
+<p>A new class must be created to represent each of the stacks in the Tower of Hanoi game:</p>
+<p>A single stack must contain:</p>
+<ul>
+<li>An vector of cubes</li>
+<li>Operations to interact with the top of the stack</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c">class Stack <span class="token punctuation">{</span>
+    public<span class="token punctuation">:</span>
+    <span class="token keyword">void</span> <span class="token function">push_back</span><span class="token punctuation">(</span><span class="token keyword">const</span> Cube <span class="token operator">&amp;</span> cube<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Cube <span class="token function">removeTop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Cube <span class="token operator">&amp;</span> <span class="token function">peekTop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// An overloaded operator &lt;&lt;, allowing us to print the stack</span>
+    <span class="token comment">// via `cout&lt;&lt;`:</span>
+    friend std<span class="token punctuation">:</span><span class="token punctuation">:</span>ostream<span class="token operator">&amp;</span> operator<span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token punctuation">:</span><span class="token punctuation">:</span>ostream <span class="token operator">&amp;</span> os<span class="token punctuation">,</span>
+                                    <span class="token keyword">const</span> Stack <span class="token operator">&amp;</span> stack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    private<span class="token punctuation">:</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span>Cube<span class="token operator">&gt;</span> cubes_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Finally the game is built from the components we have already built:</p>
+<ul>
+<li>An array of three stacks</li>
+<li>The initial state has four cubes in the first stack</li>
+</ul>
+<p>The <code>Game.h</code> header file looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Stack.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;vector&gt;</span></span>
+
+class Game <span class="token punctuation">{</span>
+    public<span class="token punctuation">:</span>
+    <span class="token function">Game</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    friend std<span class="token punctuation">:</span>ostream<span class="token operator">&amp;</span> operator<span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token punctuation">:</span><span class="token punctuation">:</span>ostream <span class="token operator">&amp;</span> os<span class="token punctuation">,</span> <span class="token keyword">const</span> Game <span class="token operator">&amp;</span> game<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    private<span class="token punctuation">:</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>vector<span class="token operator">&lt;</span>Stack<span class="token operator">&gt;</span> stacks_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The <code>Game.cpp</code> implementation file looks like:</p>
+<pre class=" language-c"><code class="prism  language-c">Game<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Game</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create the three empty stacks:</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Stack stackOfCubes<span class="token punctuation">;</span>
+        stacks_<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span> stackOfCubes <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Create the four cubes, placing each on the [0]-th stack:</span>
+    Cube <span class="token function">blue</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel<span class="token punctuation">:</span><span class="token punctuation">:</span>BLUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stacks_<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>blue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Cube <span class="token function">oragne</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel<span class="token punctuation">:</span><span class="token punctuation">:</span>ORANGE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stacks_<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>orange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Cube <span class="token function">purple</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel<span class="token punctuation">:</span><span class="token punctuation">:</span>PURPLE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stacks_<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>purple<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Cube <span class="token function">yellow</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel<span class="token punctuation">:</span><span class="token punctuation">:</span>YELLOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    stacks_<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>yellow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The <code>main.cpp</code> file looks like</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Game.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Game g<span class="token punctuation">;</span>
+
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Initial game state: "</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> g <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+    g<span class="token punctuation">.</span><span class="token function">solve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Final game state: "</span> <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+    std<span class="token punctuation">:</span><span class="token punctuation">:</span>cout <span class="token operator">&lt;&lt;</span> g <span class="token operator">&lt;&lt;</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="templated-functions">Templated Functions</h2>
+<p>A template variable is defined by declaring it before the beginning of a class or function:</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename T<span class="token operator">&gt;</span>
+class List <span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+	private<span class="token punctuation">:</span>
+	T data_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename T<span class="token operator">&gt;</span>
+<span class="token keyword">int</span> <span class="token function">max</span><span class="token punctuation">(</span>T a<span class="token punctuation">,</span> T b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">&gt;</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> a<span class="token punctuation">;</span><span class="token punctuation">}</span>
+	<span class="token keyword">return</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="compile-time-binding">Compile-Time Binding</h3>
+<p>Templated variables are checked at compile time, which allows for errors to be caught before running the program:</p>
+<pre class=" language-c"><code class="prism ++ language-c">template <span class="token operator">&lt;</span>typename T<span class="token operator">&gt;</span>
+T <span class="token function">max</span><span class="token punctuation">(</span>T a<span class="token punctuation">,</span> T b<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">&gt;</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> a<span class="token punctuation">;</span><span class="token punctuation">}</span>
+	<span class="token keyword">return</span> b<span class="token punctuation">;</span>
+</code></pre>
+<h2 id="inheritance">Inheritance</h2>
+<p><strong>Inheritance</strong> allows for a class to inherit all member functions and data from a <strong>base class</strong> into a <strong>derived class</strong>.</p>
+<p>A <strong>base class</strong> is a generic form of a specialized, <strong>derived class</strong>.</p>
+<p>A base class example <code>Shape.h</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+
+class Shape <span class="token punctuation">{</span>
+    public<span class="token punctuation">:</span>
+    <span class="token function">Shape</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">Shape</span><span class="token punctuation">(</span><span class="token keyword">double</span> width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> <span class="token function">getWideth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+    private<span class="token punctuation">:</span>
+    <span class="token keyword">double</span> width_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>A derived class example <code>Cube.h</code> looks like:</p>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">pragma</span> once</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Shape.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"HSLAPixel.h"</span></span>
+
+namaspace uiuc <span class="token punctuation">{</span>
+	<span class="token comment">// Inherites from the Shape class</span>
+    class Cube <span class="token punctuation">:</span> public Shape <span class="token punctuation">{</span>
+        public<span class="token punctuation">:</span>
+        <span class="token function">Cube</span><span class="token punctuation">(</span><span class="token keyword">double</span> width<span class="token punctuation">,</span> uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> <span class="token function">getVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+        private<span class="token punctuation">:</span>
+        uiuc<span class="token punctuation">:</span><span class="token punctuation">:</span>HSLAPixel color_<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>When a derived class is initialized, the derived class <strong>must</strong> construct the base class:</p>
+<ul>
+<li><code>Cube</code> must construct <code>Shape</code></li>
+<li>By default, uses default constructor</li>
+<li>Custom constructor can be used with an <strong>initialization list</strong></li>
+</ul>
+<h3 id="access-control">Access Control</h3>
+<p>When a base class is inherited, the derived class:</p>
+<ul>
+<li>Can access all <strong>public</strong> members of the base class</li>
+<li><strong>Cannot</strong> access <strong>private</strong> members of the base class</li>
+</ul>
+<h3 id="initializer-list">Initializer List</h3>
+<p>The syntax to initialize the base class is called the initializer list and can be used for several purposes:</p>
+<ul>
+<li>Initialize a base class</li>
+<li>Initialize the current class using another constructor</li>
+<li>Initialize the default values of member variables</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"Shape.h"</span></span>
+
+Shape<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Shape</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token function">Shape</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Nothing.</span>
+<span class="token punctuation">}</span>
+
+Shape<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">Shape</span><span class="token punctuation">(</span><span class="token keyword">double</span> width<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token function">width_</span><span class="token punctuation">(</span>width<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Nothing.</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">double</span> Shape<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> width_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>	
+</code></pre>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
