@@ -362,17 +362,213 @@ A stack may be implemented with an array or a linked list.
 
 Both can be built to run in constant, $O(1)$, running time.
 
-# 2 - Intro to Tree Structures
+## Assignments
 
-// Nothing
+- Write a function to reverse a queue
+`std::queue<int> reverse_queue(std::queue<int> q)`
+- Write a function to reverse a stack
+`std::stack<int> reverse_stack(std::stack<int> s)`
+
+
+# 2 - Binary Search Trees
+
+## Key Concepts
+
+Organizing ordered lists into a hierarchical structure, with algorithmic analysis of time complexity to show that searching is more efficient.
+
+Also covers various tree traversal methods for serializing the hierarchical data.
+
+
+## Tree Terminology
+
+A tree is a linked structure with a sense of ancestry (parents, children, siblings, and more).
+
+![](https://i.imgur.com/IF8QS3T.png)
+
+Each element in our tree is a **node**. The nodes will store data and may be labeled.
+
+Each connection between two nodes is an **edge**: $\rightarrow$. Edges do not have names, but are referred to by the nodes they connect.
+
+Trees must always contain a **root node** that has no incoming edges.
+
+Nodes that contain no outgoing edges are called **leaf nodes**.
+
+Every node, except the root node, has exactly one **parent node**.
+
+A node's **children** are the nodes with that node as it's parent. *(It's possible to have anywhere from 0 to infinite children.)*
+
+Three conditions for a tree:
+
+1. Must have a root
+2. Must have directed edges
+3. Must not have a cycle
+
+
+We say a tree is "**rooted**, **directed**, and **acyclic**" structure.
+
+### Summary
+
+- Trees formed with nodes and edges.
+- Trees must be rooted, directed, and acyclic.
+- The relationship between nodes in a tree follow classical ancestry terms (parent, child, etc.).
+
+
+## Binary Trees
+
+A **binary tree** is a tree where every node has **at most** two children.
+
+![](https://i.imgur.com/YBT7oxS.png)
+
+### Binary Tree Children
+
+In binary trees, we will label every child as either the **"left child"** or **"right child"** of its parent.
+
+Binary trees can be thought as linked lists where each nodes has two outward links, e.g.:
+
+```c
+template <typename T>
+class BinaryTree {
+    public:
+    //...
+
+    private:
+    class TreeNode {
+        public:
+        T & data;
+        TreeNode *left, *tight;
+        TreeNode(T & data) :
+                data(data), left(nullptr), right(nullptr) {}
+    };
+
+    TreeNode *root_;
+};
+```
+
+### Binary Tree Property: Height
+
+The **height** of a binary tree is the number of edges in the **longest** path from the root to a leaf.
+
+### Binary Tree Property: Full
+
+A binary tree is **full** if and only if every node has either zero children or two children.
+
+![](https://i.imgur.com/90QW67I.png)
+
+### Binary Tree Property: Perfect
+
+A binary tree is **perfect** if and only if all interior nodes have two children and leaves are at the same level.
+
+### Binary Tree Property: Complete
+
+A binary tree is **complete** if and only if the tree is perfect up until the last level and all leaf nodes on the last level are pushed to the left.
+
+![](https://i.imgur.com/jmgPxgQ.png)
+
+### Puzzles:
+
+Is a **full** tree **complete**? No.
+
+Is a **complete** tree **full**? No.
+
+### Summary
+
+- Binary Trees are a special case of a tree where each node has at most two children.
+- The children of a binary trees are referred to as the "left child" and "right child".
+- Binary Trees have a **height** and a definition for being **full**, **perfect**, and **complete**.
+
+## Tree Traversals
+
+Tree traversals deal with problems such as
+
+- How to get the data?
+- How to visit every single node?
+- In what order do we visit these nodes?
+
+![](https://i.imgur.com/AaYnSzW.png)
+
+Strategy #1: Pre-order: Shout --> Left --> Right
+
+```c
+template <class T>
+void BinaryTree<T>::preOrder(TreeNode * cur)
+{
+	if (cur != NULL) {
+		shout( cur );
+		preOrder( cur->left );
+		preOrder( cur->right );
+	};
+};
+```
+```
++ - a / b c * d c
+```
+
+Strategy #2: In-order: Left --> Shout --> Right
+
+```c
+template <class T>
+void BinaryTree<T>::inOrder(TreeNode * cur)
+{
+	if (cur != NULL) {
+		inOrder( cur->left );
+		shout( cur );
+		inOrder( cur->right );
+	};
+};
+```
+```
+a - b / c + d * e
+```
+
+Strategy #3: Post-order: Left  --> Right --> Shout
+
+```c
+template <class T>
+void BinaryTree<T>::postOrder(TreeNode * cur)
+{
+	if (cur != NULL) {
+		postOrder( cur->left );
+		postOrder( cur->right );
+		shout( cur );
+	};
+};
+```
+```
+a b c / - d e * +
+```
+
+Strategy #4: Level-order: 
+```
++ - * a / d e b c
+```
+
+
+## Binary Search Trees
+
+
+
+## BST Analysis
+
 
 # 3 - Advanced Tree Structures
 
-// Nothing
+// TBC
 
 
 # 4 - Heap Structures
 
-// Nothing
+// TBC
+
+# References
+
+- Prof. [Wade Fagen-Ulmschneider](https://www.coursera.org/instructor/fagen)
+*The University of Illinois at Urbana-Champaign*
+Ordered Data Structures
+[https://www.coursera.org/learn/cs-fundamentals-2](https://www.coursera.org/learn/cs-fundamentals-2)
+
+
+
+
+  
 
 > Written with [StackEdit](https://stackedit.io/).

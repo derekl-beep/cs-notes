@@ -23,11 +23,22 @@
 <li><a href="#array-and-list-operations">Array and List Operations</a></li>
 <li><a href="#queue-data-structure">Queue (Data Structure)</a></li>
 <li><a href="#stack-data-structure">Stack (Data Structure)</a></li>
+<li><a href="#assignments">Assignments</a></li>
 </ul>
 </li>
-<li><a href="#intro-to-tree-structures">2 - Intro to Tree Structures</a></li>
+<li><a href="#binary-search-trees">2 - Binary Search Trees</a>
+<ul>
+<li><a href="#key-concepts-1">Key Concepts</a></li>
+<li><a href="#tree-terminology">Tree Terminology</a></li>
+<li><a href="#binary-trees">Binary Trees</a></li>
+<li><a href="#tree-traversals">Tree Traversals</a></li>
+<li><a href="#binary-search-trees-1">Binary Search Trees</a></li>
+<li><a href="#bst-analysis">BST Analysis</a></li>
+</ul>
+</li>
 <li><a href="#advanced-tree-structures">3 - Advanced Tree Structures</a></li>
 <li><a href="#heap-structures">4 - Heap Structures</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 
     </div>
@@ -328,12 +339,144 @@ Second pop(): Illini
 <h3 id="summary-3">Summary</h3>
 <p>A stack may be implemented with an array or a linked list.</p>
 <p>Both can be built to run in constant, <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>, running time.</p>
-<h1 id="intro-to-tree-structures">2 - Intro to Tree Structures</h1>
-<p>// Nothing</p>
+<h2 id="assignments">Assignments</h2>
+<ul>
+<li>Write a function to reverse a queue<br>
+<code>std::queue&lt;int&gt; reverse_queue(std::queue&lt;int&gt; q)</code></li>
+<li>Write a function to reverse a stack<br>
+<code>std::stack&lt;int&gt; reverse_stack(std::stack&lt;int&gt; s)</code></li>
+</ul>
+<h1 id="binary-search-trees">2 - Binary Search Trees</h1>
+<h2 id="key-concepts-1">Key Concepts</h2>
+<p>Organizing ordered lists into a hierarchical structure, with algorithmic analysis of time complexity to show that searching is more efficient.</p>
+<p>Also covers various tree traversal methods for serializing the hierarchical data.</p>
+<h2 id="tree-terminology">Tree Terminology</h2>
+<p>A tree is a linked structure with a sense of ancestry (parents, children, siblings, and more).</p>
+<p><img src="https://i.imgur.com/IF8QS3T.png" alt=""></p>
+<p>Each element in our tree is a <strong>node</strong>. The nodes will store data and may be labeled.</p>
+<p>Each connection between two nodes is an <strong>edge</strong>: <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em;"></span><span class="mrel">→</span></span></span></span></span>. Edges do not have names, but are referred to by the nodes they connect.</p>
+<p>Trees must always contain a <strong>root node</strong> that has no incoming edges.</p>
+<p>Nodes that contain no outgoing edges are called <strong>leaf nodes</strong>.</p>
+<p>Every node, except the root node, has exactly one <strong>parent node</strong>.</p>
+<p>A node’s <strong>children</strong> are the nodes with that node as it’s parent. <em>(It’s possible to have anywhere from 0 to infinite children.)</em></p>
+<p>Three conditions for a tree:</p>
+<ol>
+<li>Must have a root</li>
+<li>Must have directed edges</li>
+<li>Must not have a cycle</li>
+</ol>
+<p>We say a tree is “<strong>rooted</strong>, <strong>directed</strong>, and <strong>acyclic</strong>” structure.</p>
+<h3 id="summary-4">Summary</h3>
+<ul>
+<li>Trees formed with nodes and edges.</li>
+<li>Trees must be rooted, directed, and acyclic.</li>
+<li>The relationship between nodes in a tree follow classical ancestry terms (parent, child, etc.).</li>
+</ul>
+<h2 id="binary-trees">Binary Trees</h2>
+<p>A <strong>binary tree</strong> is a tree where every node has <strong>at most</strong> two children.</p>
+<p><img src="https://i.imgur.com/YBT7oxS.png" alt=""></p>
+<h3 id="binary-tree-children">Binary Tree Children</h3>
+<p>In binary trees, we will label every child as either the <strong>“left child”</strong> or <strong>“right child”</strong> of its parent.</p>
+<p>Binary trees can be thought as linked lists where each nodes has two outward links, e.g.:</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename T<span class="token operator">&gt;</span>
+class BinaryTree <span class="token punctuation">{</span>
+    public<span class="token punctuation">:</span>
+    <span class="token comment">//...</span>
+
+    private<span class="token punctuation">:</span>
+    class TreeNode <span class="token punctuation">{</span>
+        public<span class="token punctuation">:</span>
+        T <span class="token operator">&amp;</span> data<span class="token punctuation">;</span>
+        TreeNode <span class="token operator">*</span>left<span class="token punctuation">,</span> <span class="token operator">*</span>tight<span class="token punctuation">;</span>
+        <span class="token function">TreeNode</span><span class="token punctuation">(</span>T <span class="token operator">&amp;</span> data<span class="token punctuation">)</span> <span class="token punctuation">:</span>
+                <span class="token function">data</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">left</span><span class="token punctuation">(</span>nullptr<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">right</span><span class="token punctuation">(</span>nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    TreeNode <span class="token operator">*</span>root_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="binary-tree-property-height">Binary Tree Property: Height</h3>
+<p>The <strong>height</strong> of a binary tree is the number of edges in the <strong>longest</strong> path from the root to a leaf.</p>
+<h3 id="binary-tree-property-full">Binary Tree Property: Full</h3>
+<p>A binary tree is <strong>full</strong> if and only if every node has either zero children or two children.</p>
+<p><img src="https://i.imgur.com/90QW67I.png" alt=""></p>
+<h3 id="binary-tree-property-perfect">Binary Tree Property: Perfect</h3>
+<p>A binary tree is <strong>perfect</strong> if and only if all interior nodes have two children and leaves are at the same level.</p>
+<h3 id="binary-tree-property-complete">Binary Tree Property: Complete</h3>
+<p>A binary tree is <strong>complete</strong> if and only if the tree is perfect up until the last level and all leaf nodes on the last level are pushed to the left.</p>
+<p><img src="https://i.imgur.com/jmgPxgQ.png" alt=""></p>
+<h3 id="puzzles">Puzzles:</h3>
+<p>Is a <strong>full</strong> tree <strong>complete</strong>? No.</p>
+<p>Is a <strong>complete</strong> tree <strong>full</strong>? No.</p>
+<h3 id="summary-5">Summary</h3>
+<ul>
+<li>Binary Trees are a special case of a tree where each node has at most two children.</li>
+<li>The children of a binary trees are referred to as the “left child” and “right child”.</li>
+<li>Binary Trees have a <strong>height</strong> and a definition for being <strong>full</strong>, <strong>perfect</strong>, and <strong>complete</strong>.</li>
+</ul>
+<h2 id="tree-traversals">Tree Traversals</h2>
+<p>Tree traversals deal with problems such as</p>
+<ul>
+<li>How to get the data?</li>
+<li>How to visit every single node?</li>
+<li>In what order do we visit these nodes?</li>
+</ul>
+<p><img src="https://i.imgur.com/AaYnSzW.png" alt=""></p>
+<p>Strategy #1: Pre-order: Shout --&gt; Left --&gt; Right</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>class T<span class="token operator">&gt;</span>
+<span class="token keyword">void</span> BinaryTree<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">preOrder</span><span class="token punctuation">(</span>TreeNode <span class="token operator">*</span> cur<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">shout</span><span class="token punctuation">(</span> cur <span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">preOrder</span><span class="token punctuation">(</span> cur<span class="token operator">-&gt;</span>left <span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">preOrder</span><span class="token punctuation">(</span> cur<span class="token operator">-&gt;</span>right <span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code>+ - a / b c * d c
+</code></pre>
+<p>Strategy #2: In-order: Left --&gt; Shout --&gt; Right</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>class T<span class="token operator">&gt;</span>
+<span class="token keyword">void</span> BinaryTree<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">inOrder</span><span class="token punctuation">(</span>TreeNode <span class="token operator">*</span> cur<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">inOrder</span><span class="token punctuation">(</span> cur<span class="token operator">-&gt;</span>left <span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">shout</span><span class="token punctuation">(</span> cur <span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">inOrder</span><span class="token punctuation">(</span> cur<span class="token operator">-&gt;</span>right <span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code>a - b / c + d * e
+</code></pre>
+<p>Strategy #3: Post-order: Left  --&gt; Right --&gt; Shout</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>class T<span class="token operator">&gt;</span>
+<span class="token keyword">void</span> BinaryTree<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">postOrder</span><span class="token punctuation">(</span>TreeNode <span class="token operator">*</span> cur<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">postOrder</span><span class="token punctuation">(</span> cur<span class="token operator">-&gt;</span>left <span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">postOrder</span><span class="token punctuation">(</span> cur<span class="token operator">-&gt;</span>right <span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">shout</span><span class="token punctuation">(</span> cur <span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code>a b c / - d e * +
+</code></pre>
+<p>Strategy #4: Level-order:</p>
+<pre><code>+ - * a / d e b c
+</code></pre>
+<h2 id="binary-search-trees-1">Binary Search Trees</h2>
+<h2 id="bst-analysis">BST Analysis</h2>
 <h1 id="advanced-tree-structures">3 - Advanced Tree Structures</h1>
-<p>// Nothing</p>
+<p>// TBC</p>
 <h1 id="heap-structures">4 - Heap Structures</h1>
-<p>// Nothing</p>
+<p>// TBC</p>
+<h1 id="references">References</h1>
+<ul>
+<li>Prof. <a href="https://www.coursera.org/instructor/fagen">Wade Fagen-Ulmschneider</a><br>
+<em>The University of Illinois at Urbana-Champaign</em><br>
+Ordered Data Structures<br>
+<a href="https://www.coursera.org/learn/cs-fundamentals-2">https://www.coursera.org/learn/cs-fundamentals-2</a></li>
+</ul>
 <blockquote>
 <p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
 </blockquote>
