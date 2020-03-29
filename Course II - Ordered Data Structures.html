@@ -34,6 +34,7 @@
 <li><a href="#tree-traversals">Tree Traversals</a></li>
 <li><a href="#binary-search-trees-1">Binary Search Trees</a></li>
 <li><a href="#bst-analysis">BST Analysis</a></li>
+<li><a href="#assignments-1">Assignments</a></li>
 </ul>
 </li>
 <li><a href="#advanced-tree-structures">3 - Advanced Tree Structures</a></li>
@@ -345,6 +346,7 @@ Second pop(): Illini
 <code>std::queue&lt;int&gt; reverse_queue(std::queue&lt;int&gt; q)</code></li>
 <li>Write a function to reverse a stack<br>
 <code>std::stack&lt;int&gt; reverse_stack(std::stack&lt;int&gt; s)</code></li>
+<li>Linked Lists and Merge Sort Project</li>
 </ul>
 <h1 id="binary-search-trees">2 - Binary Search Trees</h1>
 <h2 id="key-concepts-1">Key Concepts</h2>
@@ -465,7 +467,239 @@ class BinaryTree <span class="token punctuation">{</span>
 <pre><code>+ - * a / d e b c
 </code></pre>
 <h2 id="binary-search-trees-1">Binary Search Trees</h2>
+<p>A binary search tree (BST) is an <strong>ordered</strong> binary tree capable of being used as a search structure.</p>
+<h3 id="bst-order-property">BST Order Property</h3>
+<p>A binary tree is a BST if <strong>for every node in the tree:</strong></p>
+<ul>
+<li>Nodes in the <strong>left</strong> subtree are <strong>less</strong> than itself.</li>
+<li>Nodes in the <strong>right</strong> subtree are <strong>greater</strong> than itself.</li>
+</ul>
+<p><img src="https://i.imgur.com/CMnHDyQ.png" alt=""></p>
+<h3 id="dictionary">Dictionary</h3>
+<p>A dictionary associates a <strong>key</strong> with <strong>data</strong>:</p>
+
+<table>
+<thead>
+<tr>
+<th>Key (Unique)</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login email</td>
+<td>Profile data</td>
+</tr>
+<tr>
+<td>Phone number</td>
+<td>Phone record</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>Web-page</td>
+</tr>
+<tr>
+<td>Street address</td>
+<td>Your home</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><h3 id="dictionary-adt">Dictionary ADT</h3>
+<p><code>find</code> --&gt; Finds the data associated with a key in the dictionary<br>
+<code>insert</code> --&gt; Adds a key/data pair to dictionary<br>
+<code>remove</code> --&gt; Removes a key from the dictionary<br>
+<code>empty</code> --&gt; Returns <code>True</code> if the dictionary is empty</p>
+<h3 id="bst-based-dictionary">BST-Based Dictionary</h3>
+<p>A BST used to implement a dictionary will store both a key and data at every node:</p>
+<p><img src="https://i.imgur.com/3EAhlZs.png" alt=""></p>
+<p>Implementation in C++</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename K<span class="token punctuation">,</span> typename D<span class="token operator">&gt;</span>
+class Dictionary <span class="token punctuation">{</span>
+    public<span class="token punctuation">:</span>
+    <span class="token function">Dictionary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> D <span class="token operator">&amp;</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">,</span> <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> D <span class="token operator">&amp;</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    private<span class="token punctuation">:</span>
+    class TreeNode <span class="token punctuation">{</span>
+        public<span class="token punctuation">:</span>
+        <span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">;</span>
+        <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data<span class="token punctuation">;</span>
+        TreeNode <span class="token operator">*</span>left<span class="token punctuation">,</span> <span class="token operator">*</span>right<span class="token punctuation">;</span>
+        <span class="token function">TreeNode</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">,</span> <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data<span class="token punctuation">)</span>
+                <span class="token punctuation">:</span> <span class="token function">key</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">data</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">left</span><span class="token punctuation">(</span>nullptr<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">right</span><span class="token punctuation">(</span>nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+   TreeNode <span class="token operator">*</span>head_<span class="token punctuation">;</span>
+   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="runtime-of-bstfind">Runtime of <code>BST::find</code></h3>
+<p>Worst-case outcome of find:</p>
+<p>Visiting the longest path:</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>≤</mo><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h) \leq O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></span></p>
+<p>, where <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathdefault">h</span></span></span></span></span> is the height of the tree and <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span></span></span></span></span> is the size of data.</p>
+<p>Implementation in C++:</p>
+<pre class=" language-c"><code class="prism  language-c">template <span class="token operator">&lt;</span>typename K<span class="token punctuation">,</span> typename D<span class="token operator">&gt;</span>
+<span class="token keyword">const</span> D <span class="token operator">&amp;</span> Dictionary<span class="token operator">&lt;</span>K<span class="token punctuation">,</span> D<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> node <span class="token operator">=</span> <span class="token function">_find</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> head_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> nullptr<span class="token punctuation">)</span> <span class="token punctuation">{</span> throw std<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">runtime_error</span><span class="token punctuation">(</span><span class="token string">"key not found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> node<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+template <span class="token operator">&lt;</span>typename K<span class="token punctuation">,</span> typename D<span class="token operator">&gt;</span>
+typename Dictionary<span class="token operator">&lt;</span>K<span class="token punctuation">,</span> D<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span>TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> Dictionary<span class="token operator">&lt;</span>K<span class="token punctuation">,</span> D<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">_find</span><span class="token punctuation">(</span>
+<span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">,</span> TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> cur<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span>      <span class="token punctuation">(</span>cur <span class="token operator">==</span> nullptr<span class="token punctuation">)</span>    <span class="token punctuation">{</span> <span class="token keyword">return</span> cur<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> cur<span class="token operator">-&gt;</span>key<span class="token punctuation">)</span>   <span class="token punctuation">{</span> <span class="token keyword">return</span> cur<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">&lt;</span> cur<span class="token operator">-&gt;</span>key<span class="token punctuation">)</span>    <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">_find</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> cur<span class="token operator">-&gt;</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">else</span>                        <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">_find</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> cur<span class="token operator">-&gt;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="insert-into-a-bst">Insert into a BST</h3>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">/**
+ * insert()
+ * Inserts `key` and associated `data` into the Dictionary.
+ */</span>
+template <span class="token operator">&lt;</span>typename K<span class="token punctuation">,</span> typename D<span class="token operator">&gt;</span>
+<span class="token keyword">void</span> Dictionary<span class="token operator">&lt;</span>K<span class="token punctuation">,</span> D<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">,</span> <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> node <span class="token operator">=</span> <span class="token function">_find</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> head_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    node <span class="token operator">=</span> new <span class="token function">TreeNode</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="in-order-predecessor-iop">In-Order Predecessor (IOP)</h3>
+<p>The in-order predecessor is the previous node in an in-order traversal of a BST.</p>
+<p><img src="https://i.imgur.com/AK9Byc4.png" alt=""></p>
+<p>In-order Traversal: <code>2 4 11 19 20 37 51 55</code></p>
+<p>The IOP of a node will <strong>always</strong> be the right-most node in the node’s left sub-tree.</p>
+<h3 id="remove-from-a-bst">Remove from a BST</h3>
+<p><strong>Zero children:</strong> Simple, delete the node.</p>
+<p><strong>One child:</strong> Simple, works like a linked list.</p>
+<p><strong>Two children:</strong></p>
+<ul>
+<li>Find the IOP of the node to be removed.</li>
+<li>Swap with the IOP.</li>
+<li>Remove the node in it’s new position.</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">/**
+ * remove()
+ * Remove `key` from the Dictionary. Returns the associated data.
+ */</span>
+template <span class="token operator">&lt;</span>typename K<span class="token punctuation">,</span> typename D<span class="token operator">&gt;</span>
+<span class="token keyword">const</span> D <span class="token operator">&amp;</span> Dictionary<span class="token operator">&lt;</span>K<span class="token punctuation">,</span> D<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">const</span> K <span class="token operator">&amp;</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> node <span class="token operator">=</span> <span class="token function">_find</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> head_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">_remove</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+template <span class="token operator">&lt;</span>typename K<span class="token punctuation">,</span> typename D<span class="token operator">&gt;</span>
+<span class="token keyword">const</span> D <span class="token operator">&amp;</span> Dictionary<span class="token operator">&lt;</span>K<span class="token punctuation">,</span> D<span class="token operator">&gt;</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">_remove</span><span class="token punctuation">(</span>TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Zero child remove:</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">-&gt;</span>left <span class="token operator">==</span> nullptr <span class="token operator">&amp;&amp;</span> node<span class="token operator">-&gt;</span>right <span class="token operator">==</span> nullptr<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data <span class="token operator">=</span> node<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+        <span class="token function">delete</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        node <span class="token operator">=</span> nullptr<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// One-child (left) remove</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">-&gt;</span>left <span class="token operator">!=</span> nullptr <span class="token operator">&amp;&amp;</span> node<span class="token operator">-&gt;</span>right <span class="token operator">==</span> nullptr<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data <span class="token operator">=</span> node<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+        TreeNode <span class="token operator">*</span>temp <span class="token operator">=</span> node<span class="token punctuation">;</span>
+        node <span class="token operator">=</span> node<span class="token operator">-&gt;</span>left<span class="token punctuation">;</span>
+        <span class="token function">delete</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// One-child (right) remove</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token operator">-&gt;</span>left <span class="token operator">==</span> nullptr <span class="token operator">&amp;&amp;</span> node<span class="token operator">-&gt;</span>right <span class="token operator">!=</span> nullptr<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> D <span class="token operator">&amp;</span> data <span class="token operator">=</span> node<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+        TreeNode <span class="token operator">*</span>temp <span class="token operator">=</span> node<span class="token punctuation">;</span>
+        <span class="token function">delete</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> data<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Two-children remove</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Find the IOP</span>
+        TreeNode <span class="token operator">*</span><span class="token operator">&amp;</span> iop <span class="token operator">=</span> <span class="token function">_iop</span><span class="token punctuation">(</span> node<span class="token operator">-&gt;</span>left <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Swap the node to remove and the IOP</span>
+        <span class="token function">_swap</span><span class="token punctuation">(</span> node<span class="token punctuation">,</span> iop <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Remove the new IOP node that was swapped</span>
+        <span class="token keyword">return</span> <span class="token function">_remove</span><span class="token punctuation">(</span> node <span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <h2 id="bst-analysis">BST Analysis</h2>
+<p>Binary Search Trees (BSTs) can take on many forms and structures, even containing the same data:</p>
+<p><img src="https://i.imgur.com/5xsEE3P.png" alt=""></p>
+<p>Both trees contain the value <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>6</mn><mo separator="true">,</mo><mn>7</mn><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{1, 2,3,4,5,6,7\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">7</span><span class="mclose">}</span></span></span></span></span> with different insert orders: <code>4 2 3 6 7 1 5</code> and <code>1 3 2 4 5 7 6</code>.</p>
+<h3 id="puzzle">Puzzle</h3>
+<p>How many possible ways can we insert the same data into a BST?</p>
+<p>For a data-set of <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span></span></span></span></span> data, there are <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo stretchy="false">!</mo></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span><span class="mclose">!</span></span></span></span></span> ways of inserting them into a BST.</p>
+
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>BST Average Case</th>
+<th>BST Worst Case</th>
+<th>Sorted Array</th>
+<th>Sorted List</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find</code></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mtext>lg</mtext><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\text{lg}(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord text"><span class="mord">lg</span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mtext>lg</mtext><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\text{lg}(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord text"><span class="mord">lg</span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+</tr>
+<tr>
+<td><code>insert</code></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mtext>lg</mtext><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\text{lg}(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord text"><span class="mord">lg</span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mtext>lg</mtext><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\text{lg}(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord text"><span class="mord">lg</span></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+<td><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><h3 id="height-balance-factor">Height Balance Factor</h3>
+<p>The height balance factor <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></span> of a node is the difference in height between its two sub-trees.</p>
+<h3 id="balanced-bst">Balanced BST</h3>
+<p>A balanced BST is a BST where <strong>every node’s</strong> balance factor has a magnitude of <strong>0 or 1:</strong></p>
+<h3 id="summary-6">Summary</h3>
+<p>There are <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo stretchy="false">!</mo></mrow><annotation encoding="application/x-tex">n!</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span><span class="mclose">!</span></span></span></span></span> different ways to create BSTs with the same data.</p>
+<ul>
+<li>The worst-case BST will have a height proportional to the number of nodes.</li>
+<li>An average BST will have a height proportional to the logarithm of the number of nodes.</li>
+</ul>
+<p>Using a height balance factor, we can formalize if a given BST is balanced.</p>
+<h2 id="assignments-1">Assignments</h2>
 <h1 id="advanced-tree-structures">3 - Advanced Tree Structures</h1>
 <p>// TBC</p>
 <h1 id="heap-structures">4 - Heap Structures</h1>

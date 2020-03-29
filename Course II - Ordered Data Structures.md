@@ -368,7 +368,7 @@ Both can be built to run in constant, $O(1)$, running time.
 `std::queue<int> reverse_queue(std::queue<int> q)`
 - Write a function to reverse a stack
 `std::stack<int> reverse_stack(std::stack<int> s)`
-
+- Linked Lists and Merge Sort Project
 
 # 2 - Binary Search Trees
 
@@ -545,9 +545,235 @@ Strategy #4: Level-order:
 
 ## Binary Search Trees
 
+A binary search tree (BST) is an **ordered** binary tree capable of being used as a search structure.
+
+### BST Order Property
+
+A binary tree is a BST if **for every node in the tree:**
+
+- Nodes in the **left** subtree are **less** than itself.
+- Nodes in the **right** subtree are **greater** than itself.
+
+![](https://i.imgur.com/CMnHDyQ.png)
+
+### Dictionary
+
+A dictionary associates a **key** with **data**:
+
+
+| Key (Unique)                	| Data         	|
+|--------------------	|--------------	|
+| Login email        	| Profile data 	|
+| Phone number       	| Phone record 	|
+| URL                	| Web-page      	|
+|Street address     	| Your home    	|
+|||
+
+
+### Dictionary ADT
+
+`find` --> Finds the data associated with a key in the dictionary
+`insert` --> Adds a key/data pair to dictionary
+`remove` --> Removes a key from the dictionary
+`empty` --> Returns `True` if the dictionary is empty
+
+### BST-Based Dictionary
+
+A BST used to implement a dictionary will store both a key and data at every node:
+
+![](https://i.imgur.com/3EAhlZs.png)
+
+Implementation in C++
+
+```c
+template <typename K, typename D>
+class Dictionary {
+    public:
+    Dictionary();
+    const D & find(const K & key);
+    void insert(const K & key, const D & data);
+    const D & remove(const K & key);
+
+    private:
+    class TreeNode {
+        public:
+        const K & key;
+        const D & data;
+        TreeNode *left, *right;
+        TreeNode(const K & key, const D & data)
+                : key(key), data(data), left(nullptr), right(nullptr) {}
+   };
+
+   TreeNode *head_;
+   ...
+}
+```
+
+### Runtime of `BST::find`
+
+Worst-case outcome of find:
+
+Visiting the longest path:
+
+ $$O(h) \leq O(n)$$
+ 
+, where $h$ is the height of the tree and $n$ is the size of data.
+
+Implementation in C++:
+
+```c
+template <typename K, typename D>
+const D & Dictionary<K, D>::find(const K & key) {
+    TreeNode *& node = _find(key, head_);
+    if (node == nullptr) { throw std::runtime_error("key not found"); }
+    return node->data; 
+}
+
+...
+
+template <typename K, typename D>
+typename Dictionary<K, D>::TreeNode *& Dictionary<K, D>::_find(
+const K & key, TreeNode *& cur) const {
+    if      (cur == nullptr)    { return cur; }
+    else if (key == cur->key)   { return cur; }
+    else if (key < cur->key)    { return _find(key, cur->left); }
+    else                        { return _find(key, cur->right); }    
+}
+```
+
+### Insert into a BST
+
+```c
+/**
+ * insert()
+ * Inserts `key` and associated `data` into the Dictionary.
+ */
+template <typename K, typename D>
+void Dictionary<K, D>::insert(const K & key, const D & data) {
+    TreeNode *& node = _find(key, head_);
+    node = new TreeNode(key, data);
+}
+```
+
+### In-Order Predecessor (IOP)
+
+The in-order predecessor is the previous node in an in-order traversal of a BST.
+
+![](https://i.imgur.com/AK9Byc4.png)
+
+In-order Traversal: `2 4 11 19 20 37 51 55`
+
+The IOP of a node will **always** be the right-most node in the node's left sub-tree.
+
+### Remove from a BST
+
+**Zero children:** Simple, delete the node.
+
+**One child:** Simple, works like a linked list.
+
+**Two children:** 
+
+- Find the IOP of the node to be removed.
+- Swap with the IOP.
+- Remove the node in it's new position.
+
+```c
+/**
+ * remove()
+ * Remove `key` from the Dictionary. Returns the associated data.
+ */
+template <typename K, typename D>
+const D & Dictionary<K, D>::remove(const K & key) {
+    TreeNode *& node = _find(key, head_);
+    return _remove(node);
+}
+
+template <typename K, typename D>
+const D & Dictionary<K, D>::_remove(TreeNode *& node) {
+    // Zero child remove:
+    if (node->left == nullptr && node->right == nullptr){
+        const D & data = node->data;
+        delete(node);
+        node = nullptr;
+        return data;
+    }
+
+    // One-child (left) remove
+    else if (node->left != nullptr && node->right == nullptr)
+    {
+        const D & data = node->data;
+        TreeNode *temp = node;
+        node = node->left;
+        delete(temp);
+        return data;
+    }
+
+    // One-child (right) remove
+    else if (node->left == nullptr && node->right != nullptr)
+    {
+        const D & data = node->data;
+        TreeNode *temp = node;
+        delete(temp);
+        return data;
+    }
+
+    // Two-children remove
+    else
+    {
+        // Find the IOP
+        TreeNode *& iop = _iop( node->left );
+
+        // Swap the node to remove and the IOP
+        _swap( node, iop );
+
+        // Remove the new IOP node that was swapped
+        return _remove( node ); 
+    }
+}
+```
 
 
 ## BST Analysis
+
+Binary Search Trees (BSTs) can take on many forms and structures, even containing the same data:
+
+![](https://i.imgur.com/5xsEE3P.png)
+
+Both trees contain the value $\{1, 2,3,4,5,6,7\}$ with different insert orders: `4 2 3 6 7 1 5` and `1 3 2 4 5 7 6`.
+
+### Puzzle 
+
+How many possible ways can we insert the same data into a BST? 
+
+For a data-set of $n$ data, there are $n!$ ways of inserting them into a BST.
+
+| Operation	| BST Average Case	| BST Worst Case	| Sorted Array	| Sorted List|
+|----|----|----|----|----|
+| `find`|$O(\text{lg}(n))$|$O(n)$| $O(\text{lg}(n))$| $O(n)$ |
+| `insert`	|$O(\text{lg}(n))$|$O(n)$|$O(n)$|$O(n)$|
+| `remove`	|$O(\text{lg}(n))$|$O(n)$|$O(n)$|$O(n)$|
+||||||
+
+### Height Balance Factor
+
+The height balance factor $(b)$ of a node is the difference in height between its two sub-trees.
+
+### Balanced BST
+
+A balanced BST is a BST where **every node's** balance factor has a magnitude of **0 or 1:**
+
+### Summary
+
+There are $n!$ different ways to create BSTs with the same data.
+
+- The worst-case BST will have a height proportional to the number of nodes.
+- An average BST will have a height proportional to the logarithm of the number of nodes.
+
+Using a height balance factor, we can formalize if a given BST is balanced.
+
+## Assignments
+
+
 
 
 # 3 - Advanced Tree Structures
