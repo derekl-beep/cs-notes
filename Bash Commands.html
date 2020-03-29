@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bash Commands</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#administrator-commands">Administrator commands</a>
+<ul>
+<li><a href="#sudo">sudo</a></li>
+</ul>
+</li>
+<li><a href="#common-commands">Common commands</a>
+<ul>
+<li><a href="#man">man</a></li>
+<li><a href="#pwd">pwd</a></li>
+<li><a href="#ls">ls</a></li>
+<li><a href="#cd">cd</a></li>
+</ul>
+</li>
+<li><a href="#file-management-commands">File management commands</a>
+<ul>
+<li><a href="#cp">cp</a></li>
+<li><a href="#mkdir">mkdir</a></li>
+<li><a href="#mv">mv</a></li>
+<li><a href="#rm">rm</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="administrator-commands">Administrator commands</h1>
+<h2 id="sudo"><code>sudo</code></h2>
+<p>The <code>sudo</code> prefix command means this command will temporarily be executed with system administrator permissions. (The <code>su</code> part comes from <code>superuser</code>, which means system administrator. Other terms for this are <code>root user</code> or simply <code>administrator</code>.) Such commands are potentially dangerous because they can take control of your system.</p>
+<h1 id="common-commands">Common commands</h1>
+<h2 id="man"><code>man</code></h2>
+<p>The  <code>man</code>  command (“manual”) shows help information for other commands. For example,  <code>man man</code>  will display the help information for  <code>man</code>  itself. To quit the help viewer screen, press the  <code>q</code>  key.</p>
+<h2 id="pwd"><code>pwd</code></h2>
+<p>The <code>pwd</code> command, “print working directory,” will display the full name of the path you are in currently. This is mainly useful if you are using a terminal that doesn’t already show that information at the command prompt.</p>
+<h2 id="ls"><code>ls</code></h2>
+<p>The <code>ls</code> command lists directory contents. You can use it to list the current directory’s contents, or you can specify another directory as an argument. You can also see a long-format listing including modification dates and hidden files, typing:</p>
+<p><code>ls -hal</code></p>
+<h2 id="cd"><code>cd</code></h2>
+<p>The <code>cd</code> (“change directory”) command will let you move around the file system. You can specify a directory or type  <code>cd ..</code>  (with two dots) to go up one directory. As a shortcut,  <code>cd ~</code>  will take you directly to your user’s home directory. On AWS Cloud9, you would normally want to use  <code>cd ~/environment</code>  instead, to arrive at the same directory that is shown in the graphical file list.</p>
+<p>Usually, your terminal will support  <strong>tab completion</strong>, which means that if you are typing a path you can press <code>Tab</code> partway through typing and automatically have your command finished. This is lets you avoid having to laboriously type out long filenames. Just type the first few letters and press <code>Tab</code>.</p>
+<h1 id="file-management-commands">File management commands</h1>
+<p>These commands can create or delete files, so be careful before you try to use any of them! We just want you to be aware of what they do. You can read the instructions for each one with the  <strong>man</strong>  command, for example:  <strong>man mv</strong> will tell you all the details about the  <strong>mv</strong>  command.</p>
+<h2 id="cp"><code>cp</code></h2>
+<p>The <code>cp</code> command will copy a file.</p>
+<h2 id="mkdir"><code>mkdir</code></h2>
+<p>The <code>mkdir</code> command will make a new sub-directory.</p>
+<h2 id="mv"><code>mv</code></h2>
+<p>The <code>mv</code> command will move or rename a file.</p>
+<h2 id="rm"><code>rm</code></h2>
+<p>The <code>rm</code> command will “remove” or delete a file. Be very careful!</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
