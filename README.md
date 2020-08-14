@@ -1,14 +1,21 @@
 # cs-notes
-This repository maintains my CS notes.
+This repository maintains my notes on CS and Math.
 
-
+## Tool 
 GitHub & BitBucket HTML Preview
 https://htmlpreview.github.io/
 
 Repo: https://github.com/htmlpreview/htmlpreview.github.com
 
+Usage: `https://htmlpreview.github.io/?<HTML URL>`
+
 
 ## Content
+
+### Mathematics
+- [Fourier Analysis](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Fourier%20Analysis.html)
+
+### Computer Science / Coding
 - [Bash](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Bash%20Commands.html)
 - [SQL](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/SQL%20Training.html)
 - [C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Course%20I%20-%20Object-Oriented%20Data%20Structures%20in%20C%2B%2B.html)
