@@ -14,6 +14,7 @@ Usage: `https://htmlpreview.github.io/?<HTML URL>`
 
 ### Mathematics
 - [Fourier Analysis](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Fourier%20Analysis.html)
+- [Singular Value Decomposition](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Singular%20Value%20Decomposition.html)
 
 ### Computer Science / Coding
 - [Bash](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Bash%20Commands.html)
