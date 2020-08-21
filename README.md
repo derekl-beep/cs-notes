@@ -1,13 +1,6 @@
 # cs-notes
 This repository maintains my notes on CS and Math.
 
-## Tool 
-GitHub & BitBucket HTML Preview
-https://htmlpreview.github.io/
-
-Repo: https://github.com/htmlpreview/htmlpreview.github.com
-
-Usage: `https://htmlpreview.github.io/?<HTML URL>`
 
 
 ## Content
@@ -28,3 +21,12 @@ This part contains some useful materials (e.g. notes, lecture videos, etc.) foun
 
 - [Version Control (Git)](https://missing.csail.mit.edu/2020/version-control/)
 MIT lecture on Git.
+
+
+## Tool 
+GitHub & BitBucket HTML Preview
+https://htmlpreview.github.io/
+
+Repo: https://github.com/htmlpreview/htmlpreview.github.com
+
+Usage: `https://htmlpreview.github.io/?<HTML URL>`
