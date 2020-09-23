@@ -36,7 +36,7 @@
 <li><a href="#forward-rate-agreements-fra">Forward Rate Agreements (FRA)</a></li>
 </ul>
 </li>
-<li><a href="#one‐factor-risk-metrics-and-hedges">5 - One‐Factor Risk Metrics and Hedges</a>
+<li><a href="#one‐factor-risk-metrics-and-hedges">4 - One‐Factor Risk Metrics and Hedges</a>
 <ul>
 <li><a href="#dv01">DV01</a></li>
 <li><a href="#dv01-hedging">DV01 Hedging</a></li>
@@ -44,6 +44,13 @@
 <li><a href="#convexity">Convexity</a></li>
 </ul>
 </li>
+<li><a href="#key-rate-hedging">5 - Key Rate Hedging</a></li>
+<li><a href="#regression‐based-hedging">6 - Regression‐based Hedging</a></li>
+<li><a href="#the-science-of-term-structure-models">7 - The Science of Term Structure Models</a></li>
+<li><a href="#the-art-of-term-structure-models-drifts">9 - The Art of Term Structure Models: Drifts</a></li>
+<li><a href="#swaps-and-swapotions">16 - Swaps and Swapotions</a></li>
+<li><a href="#eurodollar-futures">18 - Eurodollar Futures</a></li>
+<li><a href="#ii---the-black’s-formula-for-caps-and-swaptions">18II - The Black’s Formula for Caps and Swaptions</a></li>
 </ul>
 
     </div>
@@ -252,7 +259,7 @@ P &amp;= \frac{\frac{1}{2}c}{(1+\frac{y}{2})} +  \frac{\frac{1}{2}c}{(1+\frac{y}
 <p>// TBA</p>
 <h2 id="forward-rate-agreements-fra">Forward Rate Agreements (FRA)</h2>
 <p>// TBA</p>
-<h1 id="one‐factor-risk-metrics-and-hedges">5 - One‐Factor Risk Metrics and Hedges</h1>
+<h1 id="one‐factor-risk-metrics-and-hedges">4 - One‐Factor Risk Metrics and Hedges</h1>
 <p>Overview</p>
 <p>Measure of risk</p>
 <ul>
@@ -324,6 +331,22 @@ P &amp;= \frac{\frac{1}{2}c}{(1+\frac{y}{2})} +  \frac{\frac{1}{2}c}{(1+\frac{y}
 <span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mfrac><mn>1</mn><mi>P</mi></mfrac><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>y</mi><mo stretchy="false">)</mo><mo>−</mo><mn>2</mn><mi>P</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>+</mo><mi>P</mi><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi mathvariant="normal">Δ</mi><mi>y</mi><mo stretchy="false">)</mo></mrow><mrow><mi mathvariant="normal">Δ</mi><msup><mi>y</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">C=\frac{1}{P} \frac{P(y+\Delta y)-2P(y)+P(y-\Delta y)}{\Delta y^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathdefault" style="margin-right: 0.07153em;">C</span><span class="mspace" style="margin-right: 0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height: 2.30744em; vertical-align: -0.8804400000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.32144em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right: 0.13889em;">P</span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.686em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord"><span class="mord mathdefault" style="margin-right: 0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.740108em;"><span class="" style="top: -2.9890000000000003em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right: 0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right: 0.03588em;">y</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mord">Δ</span><span class="mord mathdefault" style="margin-right: 0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right: 0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right: 0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right: 0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right: 0.03588em;">y</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222222222222222em;"></span><span class="mord">Δ</span><span class="mord mathdefault" style="margin-right: 0.03588em;">y</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.8804400000000001em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
 <h3 id="approximation-quality">Approximation Quality</h3>
 <p>Please visit FIGURE 4.6 in Bruce, T. (2012) Fixed Income Securities: Tools for Today’s Markets, 3rd edition. Wiley Finance.</p>
+<h1 id="key-rate-hedging">5 - Key Rate Hedging</h1>
+<p>A major weakness of the duration/DV01 based hedging is the assumption that yield curve does parallel shift.</p>
+<p>In reality, it is widely recognized that rates in different regions of the term structure are far from perfectly correlated.</p>
+<p>The risk that rates along the term structure move by different amounts is known as <strong>curve risk</strong>.</p>
+<h1 id="regression‐based-hedging">6 - Regression‐based Hedging</h1>
+<p>// TBA</p>
+<h1 id="the-science-of-term-structure-models">7 - The Science of Term Structure Models</h1>
+<p>// TBA</p>
+<h1 id="the-art-of-term-structure-models-drifts">9 - The Art of Term Structure Models: Drifts</h1>
+<p>// TBA</p>
+<h1 id="swaps-and-swapotions">16 - Swaps and Swapotions</h1>
+<p>// TBA</p>
+<h1 id="eurodollar-futures">18 - Eurodollar Futures</h1>
+<p>// TBA</p>
+<h1 id="ii---the-black’s-formula-for-caps-and-swaptions">18II - The Black’s Formula for Caps and Swaptions</h1>
+<p>//TBA</p>
 <hr>
 <p>More notes can be found on <a href="https://github.com/derekl-beep/cs-notes">https://github.com/derekl-beep/cs-notes</a>.</p>
 <blockquote>
