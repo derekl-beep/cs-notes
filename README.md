@@ -6,18 +6,18 @@ This repository maintains my notes on CS and Math.
 ## Content
 
 ### Financial Mathematics
-- [Fixed Income Derivatives](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Financial%20Math/blob/master/Fixed%20Income%20Derivatives.html)
+- [Fixed Income Derivatives](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Financial%20Math/Fixed%20Income%20Derivatives.html)
 
 ### Mathematics
-- [Fourier Analysis](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Mathematics/blob/master/Fourier%20Analysis.html)
-- [Singular Value Decomposition](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Mathematics/blob/master/Singular%20Value%20Decomposition.html)
-- [Control Theory](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Mathematics/blob/master/Control%20Theory.html)
+- [Fourier Analysis](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Fourier%20Analysis.html)
+- [Singular Value Decomposition](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Singular%20Value%20Decomposition.html)
+- [Control Theory](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Control%20Theory.html)
 
 ### Computer Science / Coding
-- [Bash](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Computer%20Science/blob/master/Bash%20Commands.html)
-- [SQL](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Computer%20Science/blob/master/SQL%20Training.html)
-- [C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Computer%20Science/blob/master/Course%20I%20-%20Object-Oriented%20Data%20Structures%20in%20C%2B%2B.html)
-- [Ordered Data Structure in C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/Computer%20Science/blob/master/Course%20II%20-%20Ordered%20Data%20Structures.html)
+- [Bash](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/Bash%20Commands.html)
+- [SQL](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/SQL%20Training.html)
+- [C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/Course%20I%20-%20Object-Oriented%20Data%20Structures%20in%20C%2B%2B.html)
+- [Ordered Data Structure in C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/Course%20II%20-%20Ordered%20Data%20Structures.html)
 
 ## Resources
 
