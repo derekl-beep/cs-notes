@@ -7,6 +7,7 @@ This repository maintains my notes on CS and Math.
 
 ### Financial Mathematics
 - [Fixed Income Derivatives](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Financial%20Math/Fixed%20Income%20Derivatives.html)
+- Equity Derivatives (To be available)
 
 ### Mathematics
 - [Fourier Analysis](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Fourier%20Analysis.html)
