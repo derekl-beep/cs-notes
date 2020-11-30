@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Databases - Advanced Topics</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a></li>
+<li><a href="#indexes">Indexes</a>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#transactions">Transactions</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</h1>
+<p>Table of Contents</p>
+<ul>
+<li>Indexes</li>
+<li>Transactions</li>
+<li>Constraints and Triggers</li>
+<li>Views and Authorization</li>
+</ul>
+<h1 id="indexes">Indexes</h1>
+<p>What is an index of a database?</p>
+<ul>
+<li>Primary mechanism to get improved performance on a database</li>
+<li>Presistent data structures, stored in database</li>
+<li>Make queries more efficient by skipping the scanning of the full table</li>
+</ul>
+<h3 id="utility">Utility</h3>
+<ul>
+<li>Index = difference between full table scans and imeediate location of tuples (rows)
+<ul>
+<li>order of magnitude performance differences</li>
+</ul>
+</li>
+<li>Underlying data structures
+<ul>
+<li>Balanced trees (B trees / B+ trees)
+<ul>
+<li>for both equality and inequality queries</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mtext>log&nbsp;</mtext><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\text{log } n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord text"><span class="mord">log&nbsp;</span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></span> performance</li>
+</ul>
+</li>
+<li>Hash tables
+<ul>
+<li>for attribute = value queries</li>
+<li><span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> performance if well designed</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Many DBMS’s build indexes automatically on <strong>Primary Key</strong> (and somestimes <strong>Unqiue</strong>) attributes.</li>
+<li>Implementation: Query planning and optimization</li>
+</ul>
+<h3 id="downsides-of-indexes">Downsides of indexes</h3>
+<ol>
+<li>Extra space - minor problem</li>
+<li>Index creation - medium, takes time</li>
+<li>Index maintainance (upon modification of table) - the most important concern</li>
+</ol>
+<h3 id="benefits-of-an-index-depends-on">Benefits of an index depends on</h3>
+<ul>
+<li>Size of table (and possibly layouts)</li>
+<li>Data distribution</li>
+<li>Query sv. update load</li>
+</ul>
+<h3 id="physical-design-advisor">“Physical” design advisor</h3>
+<p>Input: Database (statistics) and workload<br>
+Output: Recommanded indexes</p>
+<h3 id="query-optimizer">Query optimizer</h3>
+<p>Input: Database (statistics), query or update, and existing indexes<br>
+Output: Best execution with an estimated cost</p>
+<h3 id="sql-syntax">SQL Syntax:</h3>
+<p>Create an index on the attribute A</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> indexName <span class="token keyword">on</span> T<span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Create n indexes on the attribute A1 to An</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> indexName <span class="token keyword">on</span> T<span class="token punctuation">(</span>A1<span class="token punctuation">,</span> A2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> An<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Create a unique index on the attribute A</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">UNIQUE</span> <span class="token keyword">INDEX</span> indexName <span class="token keyword">on</span> T<span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Delete an index</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">DROP</span> <span class="token keyword">INDEX</span> indexName<span class="token punctuation">;</span>
+</code></pre>
+<h1 id="transactions">Transactions</h1>
+<p>Motivated by two independent requirements:</p>
+<ul>
+<li>Concurrent database access</li>
+<li>Resilience to system failure</li>
+</ul>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
