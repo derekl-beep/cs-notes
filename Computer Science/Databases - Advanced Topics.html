@@ -236,6 +236,126 @@ Output: Best execution with an estimated cost</p>
 <li>Possible outcome: <code>AVG(GPA)</code> -&gt; <code>GPA = (1.1)*GPA</code> -&gt; <code>MAX(GPA)</code></li>
 </ul>
 <h3 id="isolation-level-repaetable-read">Isolation Level: <code>REPAETABLE READ</code></h3>
+<ul>
+<li>A transaction may <strong>not</strong> perform dirty reads</li>
+<li>An iteam read multiple times cannot change value</li>
+<li>still doesn’t guarantee global serializability</li>
+</ul>
+<p>Example 1:</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">-- T1:</span>
+<span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span> <span class="token operator">*</span> GPA<span class="token punctuation">;</span>
+<span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> sizeHS <span class="token operator">=</span> <span class="token number">1500</span> <span class="token keyword">WHERE</span> sID <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
+</code></pre>
+<p><em>concurrent with …</em></p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2:</span>
+<span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">REPEATABLE</span> <span class="token keyword">READ</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>sizeHS<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<p>A possible concurrent sequence: <code>SET GPA</code> -&gt; <code>AVG(GPA)</code> -&gt; <code>SET sizeHS</code> -&gt; <code>AVG(sizeHS)</code></p>
+<h4 id="phantom-tuples">Phantom tuples</h4>
+<ul>
+<li>But a relation can change!</li>
+</ul>
+<p>Example 2:</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">-- T1:</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> Student <span class="token punctuation">[</span><span class="token number">100</span> new tuples<span class="token punctuation">]</span>
+</code></pre>
+<p><em>concurrent with …</em></p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2:</span>
+<span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">REPEATABLE</span> <span class="token keyword">READ</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<p>Possible outcome:<br>
+The two <code>AVG(GPA)</code> statements return different results. The first execution of <code>AVG(GPA)</code> only locks the existing tuples. The insertions of new tuples between the two executions of <code>AVG(GPA)</code> are allowed.</p>
+<ul>
+<li>However, deletion of tuples is not allowed!</li>
+</ul>
+<p>Example 3:</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">-- T1:</span>
+<span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> Student <span class="token punctuation">[</span><span class="token number">100</span> tuples<span class="token punctuation">]</span>
+</code></pre>
+<p><em>concurrent with …</em></p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2:</span>
+<span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">REPEATABLE</span> <span class="token keyword">READ</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<p>Possible outcome:</p>
+<ul>
+<li>Two statements return the same value, either the <code>AVG(GPA)</code> before or after the complete deletion.</li>
+<li>If the first <code>AVG(GPA)</code> is executed before <code>T1</code>, all tuples in <code>Student</code> are read and locked, preventing any deletion before <code>T2</code> completes.</li>
+</ul>
+<h3 id="read-only-transactions"><code>READ ONLY</code> Transactions</h3>
+<ul>
+<li>Help system optimize performance</li>
+<li>Independent of isolation level</li>
+</ul>
+<p>Example:</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">READ</span> ONLY<span class="token punctuation">;</span>
+<span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">REPEATABLE</span> <span class="token keyword">READ</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">MAX</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<p>The first line hints the query optimizer that the transaction performs only querying operations.</p>
+<h3 id="isolation-level-summary">Isolation Level: Summary</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Isolation Level</th>
+<th align="center">Dirty Read</th>
+<th align="center">Non-repeatable Read</th>
+<th align="center">Phantoms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Weakest</td>
+<td align="center"><code>Read Uncommitted</code></td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>Read Committed</code></td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"><code>Repeatable Read</code></td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+</tr>
+<tr>
+<td align="center">Strongest</td>
+<td align="center"><code>Serializable</code></td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+</tr>
+</tbody>
+</table><ul>
+<li>Standard Default: <code>Serializable</code></li>
+<li>Weaker isolation levels:
+<ul>
+<li>Increased conccurency + decreased overhead = increased performance</li>
+<li>Weaker consistency guarantees</li>
+<li>Some systems, e.g. MySQL and Oracle, have default <code>Repeatable Read</code></li>
+</ul>
+</li>
+<li>Isolation level per transaction and “eye of the beholder”
+<ul>
+<li>Each transaction’s reads must conform to its isolation level.</li>
+</ul>
+</li>
+</ul>
 <h1 id="references">References</h1>
 <ul>
 <li>Databases: Advanced Topics in SQL<br>
