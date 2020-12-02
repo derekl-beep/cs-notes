@@ -13,13 +13,23 @@
     <div class="stackedit__toc">
       
 <ul>
-<li><a href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a></li>
+<li><a href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a>
+<ul>
+<li></li>
+</ul>
+</li>
 <li><a href="#indexes">Indexes</a>
 <ul>
 <li></li>
 </ul>
 </li>
-<li><a href="#transactions">Transactions</a></li>
+<li><a href="#transactions">Transactions</a>
+<ul>
+<li></li>
+<li><a href="#isolation-level">Isolation Level</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
 </ul>
 
     </div>
@@ -27,7 +37,9 @@
   <div class="stackedit__right">
     <div class="stackedit__html">
       <h1 id="databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</h1>
-<p>Table of Contents</p>
+<p>Created: 28 Nov 2020<br>
+Modified: 2 Dec 2020</p>
+<h3 id="table-of-contents">Table of Contents</h3>
 <ul>
 <li>Indexes</li>
 <li>Transactions</li>
@@ -103,6 +115,133 @@ Output: Best execution with an estimated cost</p>
 <ul>
 <li>Concurrent database access</li>
 <li>Resilience to system failure</li>
+</ul>
+<h3 id="concurrent-access-by-different-applications">Concurrent Access (by different applications)</h3>
+<ul>
+<li>Attribute level</li>
+<li>Tuple level</li>
+<li>Table level</li>
+<li>Multi-statement level</li>
+</ul>
+<h3 id="concurrency-goals">Concurrency goals</h3>
+<ul>
+<li>Execute sequence of SQL statements so that they appear to be runing in isolation.
+<ul>
+<li>Simple solution: execute them in sequence</li>
+</ul>
+</li>
+<li>But want to enable concurrency when safe to do so.
+<ul>
+<li>e.g. Multiprocessor, multithreaded, asyn. I/O</li>
+</ul>
+</li>
+</ul>
+<h3 id="resilience-to-system-failures">Resilience to System Failures</h3>
+<ul>
+<li>Failure scenarios:
+<ul>
+<li>Crash during a bulk load of data</li>
+<li>Crash during table migration</li>
+<li>Crash during lots of updates</li>
+</ul>
+</li>
+<li>System failure goal: Guarantee <strong>all-or-nothing</strong> execution, regardless of failure</li>
+</ul>
+<h3 id="solution-to-both-concurrency--failures-transactions">Solution to both Concurrency &amp; Failures: Transactions</h3>
+<p>A transaction is a squence of one or more SQL operations treated as a unit. SQL standard:</p>
+<ul>
+<li>Transaction begins automatically on the first SQL statement</li>
+<li>On “commit” tranaction ends and new one begins</li>
+<li>Current transaction ends on session termination</li>
+<li>“Autocommit” turns each statement into transaction</li>
+</ul>
+<p>Other properties:</p>
+<ul>
+<li>Transactions appear to run in isolation</li>
+<li>If the system fails, each transactions changes are relected with entirely / not at all.</li>
+</ul>
+<h3 id="acid-properties">ACID Properties</h3>
+<ul>
+<li><strong>A</strong>tomicity - each transaction is "all-or-nothing’, never left half done (logging).</li>
+<li><strong>C</strong>onsistency</li>
+<li><strong>I</strong>solation</li>
+<li><strong>D</strong>urability - If system craches after tranaction commits, all effect of transactions remain in the database (logging).</li>
+</ul>
+<p>Serializability</p>
+<ul>
+<li>Operations may be interleaved, but execution must be equivalent to some sequential (serial) order of all transactions.</li>
+</ul>
+<p>Transaction Rollback (= Abort)</p>
+<ul>
+<li>Undoes partial effects  of transactions (<strong>A</strong>tomicity)</li>
+<li>Can be system- / client-initiated</li>
+<li>“Rollback” command only undoes the effects on data itself in the DB. It doesn’t un do things like modifying variables.</li>
+</ul>
+<p>Consistency:</p>
+<ul>
+<li>For each client and each transaction:
+<ul>
+<li>assume all constraints hold when transaction begins</li>
+<li>must guarantee all constaints hold when transaction ends</li>
+</ul>
+</li>
+<li>Serializability =&gt; constraints always hold</li>
+</ul>
+<h2 id="isolation-level">Isolation Level</h2>
+<p>4 types of isolation level:</p>
+<ul>
+<li>Read Uncommitted</li>
+<li>Read Committed</li>
+<li>Repeatable Read</li>
+<li>Serizlizable (by default)</li>
+</ul>
+<p>A “weaker” isolation level reduce overhead and increase concurrency, but at the same time reduce the concurrency guarantee.</p>
+<h3 id="dirty-reads">Dirty Reads</h3>
+<p>“Dirty” data item: written by an uncommitted transaction</p>
+<h3 id="isolation-level-read-uncommitted">Isolation Level: <code>READ UNCOMMITTED</code></h3>
+<ul>
+<li>A transaction may perform dirty reads</li>
+<li>Example: T1 and T2 run concurrently</li>
+</ul>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T1:</span>
+<span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token operator">*</span>GPA <span class="token keyword">WHERE</span> sizeHS <span class="token operator">&gt;</span> <span class="token number">2500</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2: </span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<p>By default, T1 and T2 are serialized, resulting in an operation order of either {T1, T2} or {T2, T1}.</p>
+<p>To increase the concurreny, we can set a “weaker” isolation level for T2:</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T1:</span>
+<span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token operator">*</span>GPA <span class="token keyword">WHERE</span> sizeHS <span class="token operator">&gt;</span> <span class="token number">2500</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2: </span>
+<span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">READ</span> <span class="token keyword">UNCOMMITTED</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<p>This makes T1 &amp; T2 run concurrently, i.e. T2 computes the average of GPA while T1 is updating the GPA.</p>
+<h3 id="isolation-level-read-committed">Isolation Level: <code>READ COMMITTED</code></h3>
+<ul>
+<li>A transaction may <strong>not</strong> perform dirty reads</li>
+<li>Still doesn’t guarantee global serializability</li>
+</ul>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T1:</span>
+<span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token operator">*</span>GPA <span class="token keyword">WHERE</span> sizeHS <span class="token operator">&gt;</span> <span class="token number">2500</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2: </span>
+<span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">READ</span> <span class="token keyword">COMMITTED</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token function">MAX</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>Possible outcome: <code>AVG(GPA)</code> -&gt; <code>GPA = (1.1)*GPA</code> -&gt; <code>MAX(GPA)</code></li>
+</ul>
+<h3 id="isolation-level-repaetable-read">Isolation Level: <code>REPAETABLE READ</code></h3>
+<h1 id="references">References</h1>
+<ul>
+<li>Databases: Advanced Topics in SQL<br>
+Prof. Jennifer Widom<br>
+Dean, School of Engineering at Stanford University<br>
+URL: <a href="https://www.edx.org/course/advanced-topics-in-sql">https://www.edx.org/course/advanced-topics-in-sql</a></li>
 </ul>
 <blockquote>
 <p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
