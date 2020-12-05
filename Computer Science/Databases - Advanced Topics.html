@@ -15,18 +15,63 @@
 <ul>
 <li><a href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a>
 <ul>
-<li></li>
+<li>
+<ul>
+<li><a href="#key-topics">Key Topics</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#indexes">Indexes</a>
 <ul>
-<li></li>
+<li>
+<ul>
+<li><a href="#utility">Utility</a></li>
+<li><a href="#downsides-of-indexes">Downsides of indexes</a></li>
+<li><a href="#benefits-of-an-index-depends-on">Benefits of an index depends on</a></li>
+<li><a href="#physical-design-advisor">“Physical” design advisor</a></li>
+<li><a href="#query-optimizer">Query optimizer</a></li>
+<li><a href="#sql-syntax">SQL Syntax:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#transactions">Transactions</a>
 <ul>
-<li></li>
-<li><a href="#isolation-level">Isolation Level</a></li>
+<li>
+<ul>
+<li><a href="#concurrent-access-by-different-applications">Concurrent Access (by different applications)</a></li>
+<li><a href="#concurrency-goals">Concurrency goals</a></li>
+<li><a href="#resilience-to-system-failures">Resilience to System Failures</a></li>
+<li><a href="#solution-to-both-concurrency--failures-transactions">Solution to both Concurrency & Failures: Transactions</a></li>
+<li><a href="#acid-properties">ACID Properties</a></li>
+</ul>
+</li>
+<li><a href="#isolation-level">Isolation Level</a>
+<ul>
+<li><a href="#dirty-reads">Dirty Reads</a></li>
+<li><a href="#isolation-level-read-uncommitted">Isolation Level: READ UNCOMMITTED</a></li>
+<li><a href="#isolation-level-read-committed">Isolation Level: READ COMMITTED</a></li>
+<li><a href="#isolation-level-repaetable-read">Isolation Level: REPAETABLE READ</a></li>
+<li><a href="#read-only-transactions">READ ONLY Transactions</a></li>
+<li><a href="#isolation-level-summary">Isolation Level: Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#contraints--triggers">Contraints & Triggers</a>
+<ul>
+<li>
+<ul>
+<li><a href="#topics">Topics</a></li>
+</ul>
+</li>
+<li><a href="#motivation--overview">Motivation & Overview</a>
+<ul>
+<li><a href="#integrity-constraints">Integrity Constraints</a></li>
+<li><a href="#triggers">Triggers</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#references">References</a></li>
@@ -38,8 +83,8 @@
     <div class="stackedit__html">
       <h1 id="databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</h1>
 <p>Created: 28 Nov 2020<br>
-Modified: 2 Dec 2020</p>
-<h3 id="table-of-contents">Table of Contents</h3>
+Modified: 5 Dec 2020</p>
+<h3 id="key-topics">Key Topics</h3>
 <ul>
 <li>Indexes</li>
 <li>Transactions</li>
@@ -206,14 +251,16 @@ Output: Best execution with an estimated cost</p>
 <pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T1:</span>
 <span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token operator">*</span>GPA <span class="token keyword">WHERE</span> sizeHS <span class="token operator">&gt;</span> <span class="token number">2500</span><span class="token punctuation">;</span>
 </code></pre>
+<p><em>concurrent with …</em></p>
 <pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2: </span>
 <span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
 </code></pre>
 <p>By default, T1 and T2 are serialized, resulting in an operation order of either {T1, T2} or {T2, T1}.</p>
-<p>To increase the concurreny, we can set a “weaker” isolation level for T2:</p>
+<p>To increase the concurreny, we can set a “weaker” isolation level for T2 as the follows:</p>
 <pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T1:</span>
 <span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token operator">*</span>GPA <span class="token keyword">WHERE</span> sizeHS <span class="token operator">&gt;</span> <span class="token number">2500</span><span class="token punctuation">;</span>
 </code></pre>
+<p><em>concurrent with …</em></p>
 <pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2: </span>
 <span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">READ</span> <span class="token keyword">UNCOMMITTED</span><span class="token punctuation">;</span>
 <span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
@@ -227,6 +274,7 @@ Output: Best execution with an estimated cost</p>
 <pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T1:</span>
 <span class="token keyword">UPDATE</span> Student <span class="token keyword">SET</span> GPA <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token operator">*</span>GPA <span class="token keyword">WHERE</span> sizeHS <span class="token operator">&gt;</span> <span class="token number">2500</span><span class="token punctuation">;</span>
 </code></pre>
+<p><em>concurrent with …</em></p>
 <pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--T2: </span>
 <span class="token keyword">SET</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION LEVEL</span> <span class="token keyword">READ</span> <span class="token keyword">COMMITTED</span><span class="token punctuation">;</span>
 <span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span> <span class="token keyword">FROM</span> Student<span class="token punctuation">;</span>
@@ -356,6 +404,113 @@ The two <code>AVG(GPA)</code> statements return different results. The first exe
 </ul>
 </li>
 </ul>
+<h1 id="contraints--triggers">Contraints &amp; Triggers</h1>
+<h3 id="topics">Topics</h3>
+<ul>
+<li>Motivation &amp; Overview</li>
+<li>Constraints of Several Types</li>
+<li>Referential Integrity</li>
+<li>Trigger Introduction</li>
+</ul>
+<h2 id="motivation--overview">Motivation &amp; Overview</h2>
+<p>What are the differences between contraints and triggers?</p>
+<p>(Integrity) constraints</p>
+<ul>
+<li>constrain allowable database states</li>
+<li>more a static concept</li>
+</ul>
+<p>Triggers</p>
+<ul>
+<li>monitor database cahnges</li>
+<li>check condition &amp; initiate actions</li>
+<li>more a dynamic concept</li>
+</ul>
+<h3 id="integrity-constraints">Integrity Constraints</h3>
+<h4 id="what-is-an-integrity-constraint">What is an integrity constraint?</h4>
+<ul>
+<li>Implose restrictions on allowable data, beyond those imposed by structure &amp; type.</li>
+<li>Examples:
+<ul>
+<li>0.0 &lt; GPA &lt;= 4.0</li>
+<li>enrollment &lt; 75,000</li>
+<li>decision: ‘Y’, ‘N’, or Null</li>
+<li>major = ‘CS’ then decision = Null</li>
+</ul>
+</li>
+</ul>
+<h4 id="why-use-constraints">Why use constraints?</h4>
+<ul>
+<li>Catch data entry errors (during <code>INSERT</code>)</li>
+<li>Set correctness criteria (during <code>UPDATE</code>)</li>
+<li>Enforce consistency
+<ul>
+<li>for data come from differenct sources</li>
+</ul>
+</li>
+<li>Tell the DBMS about the data
+<ul>
+<li>for more efficient storing / query processing</li>
+</ul>
+</li>
+</ul>
+<h4 id="classification-of-sql-contraints">Classification of SQL contraints</h4>
+<ul>
+<li>Non-null constraint</li>
+<li>Key constraint - for unique values</li>
+<li>Referential integrity (a.k.a. foreign key)</li>
+<li>Attribute-based</li>
+<li>Tuple-based</li>
+<li>General assertions</li>
+</ul>
+<h4 id="declaration--enforcement">Declaration &amp; Enforcement</h4>
+<p>When do we declare a constraint?</p>
+<ul>
+<li>with original schema - checked after bulk loading</li>
+<li>or later - checked on current DB</li>
+</ul>
+<p>When is a constraint enforced?</p>
+<ul>
+<li>check after every “dangerous” modification
+<ul>
+<li>only those potentially cuasing a constraint to be violated</li>
+</ul>
+</li>
+<li>deferred constraint checking - check after every transaction instead</li>
+</ul>
+<h3 id="triggers">Triggers</h3>
+<p>What is a SQL trigger?</p>
+<ul>
+<li>When <code>event</code> occurs, check <code>condition</code>; if <code>true</code>, do <code>action</code>.</li>
+<li>a.k.a. “Event-Condition-Action Rules”</li>
+</ul>
+<h4 id="examples">Examples</h4>
+<ul>
+<li>Event: enrollment &gt; 35,000; Action: reject all applications</li>
+<li>Event: Insert applicant with GPA &gt; 3.95; Action: accept automatically</li>
+<li>Event: Update <code>sizeHS &gt; 7,000</code>; Action: raise error</li>
+</ul>
+<h4 id="why-use-triggers">Why use triggers?</h4>
+<ul>
+<li>Move logic from applications to DBMS
+<ul>
+<li>makes the checking avaliable for mutiple applications interacting with the DBMS</li>
+</ul>
+</li>
+<li>To enforce constraints
+<ul>
+<li>expressiveness</li>
+<li>constraint “repair” logic - by the “action”</li>
+</ul>
+</li>
+</ul>
+<h4 id="syntax">Syntax</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TRIGGER</span> name
+BEFORE <span class="token operator">|</span> <span class="token keyword">AFTER</span> <span class="token operator">|</span> INSTEAD <span class="token keyword">OF</span> events
+<span class="token punctuation">[</span>referencing<span class="token operator">-</span>variables<span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token keyword">FOR EACH ROW</span><span class="token punctuation">]</span>
+<span class="token keyword">WHEN</span> <span class="token punctuation">(</span>condition<span class="token punctuation">)</span>
+<span class="token keyword">action</span><span class="token punctuation">;</span>
+</code></pre>
 <h1 id="references">References</h1>
 <ul>
 <li>Databases: Advanced Topics in SQL<br>
