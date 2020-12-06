@@ -15,63 +15,25 @@
 <ul>
 <li><a href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a>
 <ul>
-<li>
-<ul>
 <li><a href="#key-topics">Key Topics</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#indexes">Indexes</a>
 <ul>
-<li>
-<ul>
-<li><a href="#utility">Utility</a></li>
-<li><a href="#downsides-of-indexes">Downsides of indexes</a></li>
-<li><a href="#benefits-of-an-index-depends-on">Benefits of an index depends on</a></li>
-<li><a href="#physical-design-advisor">“Physical” design advisor</a></li>
-<li><a href="#query-optimizer">Query optimizer</a></li>
-<li><a href="#sql-syntax">SQL Syntax:</a></li>
-</ul>
-</li>
+<li></li>
 </ul>
 </li>
 <li><a href="#transactions">Transactions</a>
 <ul>
-<li>
-<ul>
-<li><a href="#concurrent-access-by-different-applications">Concurrent Access (by different applications)</a></li>
-<li><a href="#concurrency-goals">Concurrency goals</a></li>
-<li><a href="#resilience-to-system-failures">Resilience to System Failures</a></li>
-<li><a href="#solution-to-both-concurrency--failures-transactions">Solution to both Concurrency & Failures: Transactions</a></li>
-<li><a href="#acid-properties">ACID Properties</a></li>
-</ul>
-</li>
-<li><a href="#isolation-level">Isolation Level</a>
-<ul>
-<li><a href="#dirty-reads">Dirty Reads</a></li>
-<li><a href="#isolation-level-read-uncommitted">Isolation Level: READ UNCOMMITTED</a></li>
-<li><a href="#isolation-level-read-committed">Isolation Level: READ COMMITTED</a></li>
-<li><a href="#isolation-level-repaetable-read">Isolation Level: REPAETABLE READ</a></li>
-<li><a href="#read-only-transactions">READ ONLY Transactions</a></li>
-<li><a href="#isolation-level-summary">Isolation Level: Summary</a></li>
-</ul>
-</li>
+<li></li>
+<li><a href="#isolation-level">Isolation Level</a></li>
 </ul>
 </li>
 <li><a href="#contraints--triggers">Contraints & Triggers</a>
 <ul>
-<li>
-<ul>
-<li><a href="#topics">Topics</a></li>
-</ul>
-</li>
-<li><a href="#motivation--overview">Motivation & Overview</a>
-<ul>
-<li><a href="#integrity-constraints">Integrity Constraints</a></li>
-<li><a href="#triggers">Triggers</a></li>
-</ul>
-</li>
+<li></li>
+<li><a href="#motivation--overview">Motivation & Overview</a></li>
+<li><a href="#constraints-of-several-types">Constraints of Several Types</a></li>
 </ul>
 </li>
 <li><a href="#references">References</a></li>
@@ -84,10 +46,9 @@
       <h1 id="databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</h1>
 <p>Created: 28 Nov 2020<br>
 Modified: 5 Dec 2020</p>
-<h3 id="key-topics">Key Topics</h3>
+<h2 id="key-topics">Key Topics</h2>
 <ul>
-<li>Indexes</li>
-<li>Transactions</li>
+<li>Indexes and Transactions</li>
 <li>Constraints and Triggers</li>
 <li>Views and Authorization</li>
 </ul>
@@ -510,6 +471,191 @@ BEFORE <span class="token operator">|</span> <span class="token keyword">AFTER</
 <span class="token punctuation">[</span><span class="token keyword">FOR EACH ROW</span><span class="token punctuation">]</span>
 <span class="token keyword">WHEN</span> <span class="token punctuation">(</span>condition<span class="token punctuation">)</span>
 <span class="token keyword">action</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="constraints-of-several-types">Constraints of Several Types</h2>
+<p>Demo datasets:</p>
+<p>Simple college admission database</p>
+<pre><code>College(cName, state, enrollment)
+Student(sID, sName, GPA, sizeHS)
+Apply(sID, cName, major, decision)
+</code></pre>
+<h3 id="non-null-constraint">Non-null constraint</h3>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Student<span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span><span class="token punctuation">,</span>
+	sName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	GPA <span class="token keyword">REAL</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+	sizeHS <span class="token keyword">INT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="key-constraint">Key constraint</h3>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Student<span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+	sName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	GPA <span class="token keyword">REAL</span><span class="token punctuation">,</span>
+	sizeHS <span class="token keyword">INT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--s1</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> Student <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> sName<span class="token punctuation">,</span> GPA<span class="token punctuation">,</span> sizeHS<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">,</span> <span class="token string">'Amy'</span><span class="token punctuation">,</span> <span class="token number">3.9</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--s2</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> Student <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> sName<span class="token punctuation">,</span> GPA<span class="token punctuation">,</span> sizeHS<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">456</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token number">3.6</span><span class="token punctuation">,</span> <span class="token number">1500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--s3: erroneous</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> Student <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> sName<span class="token punctuation">,</span> GPA<span class="token punctuation">,</span> sizeHS<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">,</span> <span class="token string">'Charles'</span><span class="token punctuation">,</span> <span class="token number">3.3</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>s3</code> will incur an insert error due to the repeated <code>sID</code>.</p>
+<pre><code>Description: Abort due to constraint violation. Column sID is not unique.
+</code></pre>
+<p>The following update operation may also incur the same error. This depends on which tuples are updated first.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">UPDATE</span> Student
+	<span class="token keyword">SET</span> sID <span class="token operator">=</span> sID <span class="token operator">-</span> <span class="token number">111</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This issue can be mitigated by using the deferred constraint checking.</p>
+<h4 id="multiple-keys">Multiple Keys</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Student<span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+	sName <span class="token keyword">TEXT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+	GPA <span class="token keyword">REAL</span><span class="token punctuation">,</span>
+	sizeHS <span class="token keyword">INT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code>Description: Table "Student" has more than one primary key.
+</code></pre>
+<p>In SQL standards, only 1 primary key is allowed for a table. Setting other attributes as <code>UNIQUE</code> to set up multiple keys in a single table.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Student<span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+	sName <span class="token keyword">TEXT</span> <span class="token keyword">UNIQUE</span><span class="token punctuation">,</span>
+	GPA <span class="token keyword">REAL</span><span class="token punctuation">,</span>
+	sizeHS <span class="token keyword">INT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="multiple-attribute-key">Multiple-attribute Key</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> College<span class="token punctuation">(</span>
+	cName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	state <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	enrollment <span class="token keyword">INT</span><span class="token punctuation">,</span>
+	<span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>cName<span class="token punctuation">,</span> state<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--s1</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> College <span class="token punctuation">(</span>cName<span class="token punctuation">,</span> state<span class="token punctuation">,</span> enrollment<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'Mason'</span><span class="token punctuation">,</span> <span class="token string">'CA'</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--s2</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> College <span class="token punctuation">(</span>cName<span class="token punctuation">,</span> state<span class="token punctuation">,</span> enrollment<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'Mason'</span><span class="token punctuation">,</span> <span class="token string">'NY'</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--s3: erroneous</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> College <span class="token punctuation">(</span>cName<span class="token punctuation">,</span> state<span class="token punctuation">,</span> enrollment<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'Mason'</span><span class="token punctuation">,</span> <span class="token string">'CA'</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code>Description: Abort due to constraint violation. Column cName, state are not unique.
+</code></pre>
+<p>To enable more than 1 attribute keys, use the <code>UNIQUE</code> constraint as before.</p>
+<h4 id="example">Example</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">Apply</span><span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span><span class="token punctuation">,</span>
+	cName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	major <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	decision <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	<span class="token keyword">UNIQUE</span> <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> cName<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token keyword">UNIQUE</span> <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> major<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--s1</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">Apply</span> <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> cName<span class="token punctuation">,</span> major<span class="token punctuation">,</span> decision<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">,</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token string">'Y'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--s2</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">Apply</span> <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> cName<span class="token punctuation">,</span> major<span class="token punctuation">,</span> decision<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">,</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token string">'N'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In SQL standard, repeated <code>NULL</code> vaules are allowed for attributes declared as unique.</p>
+<h3 id="attribute-based-check-constraints">Attribute-based check constraints</h3>
+<p>We can use  <code>CHECK</code> to create constraints on attributes when creating a schema. This catches data-entry errors and data modification errors.</p>
+<h4 id="example-1">Example</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Student<span class="token punctuation">(</span>
+    sID <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    sName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+    GPA <span class="token keyword">REAL</span> <span class="token keyword">CHECK</span><span class="token punctuation">(</span>
+        GPA <span class="token operator">&lt;=</span> <span class="token number">4.0</span>
+        <span class="token operator">AND</span> GPA <span class="token operator">&gt;</span> <span class="token number">0.0</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    sizeHS <span class="token keyword">INT</span> <span class="token keyword">CHECK</span><span class="token punctuation">(</span>sizeHS <span class="token operator">&lt;</span> <span class="token number">5000</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token comment">--s1</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> Student <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> sName<span class="token punctuation">,</span> GPA<span class="token punctuation">,</span> sizeHS<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">,</span> <span class="token string">'Amy'</span><span class="token punctuation">,</span> <span class="token number">3.9</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">--s2: erroneous</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> Student <span class="token punctuation">(</span>sID<span class="token punctuation">,</span> sName<span class="token punctuation">,</span> GPA<span class="token punctuation">,</span> sizeHS<span class="token punctuation">)</span>
+	<span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">456</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token number">4.6</span><span class="token punctuation">,</span> <span class="token number">1500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre><code>Description: Abort due to constraint violation. Constraint failed.
+</code></pre>
+<p>The attribute-based constraint can be used to enforce the non-null constraint syntaxtically.</p>
+<h4 id="example-2">Example</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Student<span class="token punctuation">(</span>
+    sID <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    sName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+    GPA <span class="token keyword">REAL</span> <span class="token keyword">CHECK</span><span class="token punctuation">(</span>GPA <span class="token operator">IS</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    sizeHS <span class="token keyword">INT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="tuple-based-constraints">Tuple-based constraints</h3>
+<p>The constraints are checked whenever a tuple is inerted or updated.</p>
+<h4 id="example-3">Example</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">Apply</span><span class="token punctuation">(</span>
+    sID <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    cName <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+    major <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+    decision <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+    <span class="token keyword">CHECK</span> <span class="token punctuation">(</span>
+        decision <span class="token operator">=</span> <span class="token string">'N'</span>
+        <span class="token operator">OR</span> cName <span class="token operator">&lt;&gt;</span> <span class="token string">'Stanford'</span>
+        <span class="token operator">OR</span> major <span class="token operator">&lt;&gt;</span> <span class="token string">'CS'</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="general-assertions">General assertions</h3>
+<p>Assertions are extremely powerful. It is in the SQL standard. However, it is may not be supported by the system.</p>
+<h4 id="example-4">Example</h4>
+<p>Assert the attribute <code>A</code> is always unique.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> ASSERTION <span class="token keyword">Key</span> <span class="token keyword">CHECK</span> <span class="token punctuation">(</span>
+    <span class="token punctuation">(</span>
+        <span class="token keyword">SELECT</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token keyword">DISTINCT</span> A<span class="token punctuation">)</span>
+        <span class="token keyword">FROM</span> T
+    <span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>
+        <span class="token keyword">SELECT</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span>
+        <span class="token keyword">FROM</span> T
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="example-5">Example</h4>
+<p>Assert the student IDs in the <code>Apply</code> table already exist in <code>Student</code> table.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> ASSERTION ReferentialIntegrity <span class="token keyword">CHECK</span> <span class="token punctuation">(</span>
+    <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">(</span>
+        <span class="token keyword">SELECT</span> <span class="token operator">*</span>
+        <span class="token keyword">FROM</span> <span class="token keyword">Apply</span>
+        <span class="token keyword">WHERE</span> sID <span class="token operator">NOT</span> <span class="token operator">IN</span> <span class="token punctuation">(</span>
+                <span class="token keyword">SELECT</span> sID
+                <span class="token keyword">FROM</span> Student
+            <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="example-6">Example</h4>
+<p>Assert the average GPA of accepted applicants is always greater than 3.0.</p>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> ASSERTION AvgAccept <span class="token keyword">CHECK</span> <span class="token punctuation">(</span>
+    <span class="token number">3.0</span> <span class="token operator">&lt;</span> <span class="token punctuation">(</span>
+        <span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>GPA<span class="token punctuation">)</span>
+        <span class="token keyword">FROM</span> Student
+        <span class="token keyword">WHERE</span> sID <span class="token operator">IN</span> <span class="token punctuation">(</span>
+                <span class="token keyword">SELECT</span> sID
+                <span class="token keyword">FROM</span> <span class="token keyword">Apply</span>
+                <span class="token keyword">WHERE</span> decision <span class="token operator">=</span> <span class="token string">'Y'</span>
+            <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h1 id="references">References</h1>
 <ul>
