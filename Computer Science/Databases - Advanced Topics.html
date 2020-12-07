@@ -34,6 +34,7 @@
 <li></li>
 <li><a href="#motivation--overview">Motivation & Overview</a></li>
 <li><a href="#constraints-of-several-types">Constraints of Several Types</a></li>
+<li><a href="#referential-integrity">Referential Integrity</a></li>
 </ul>
 </li>
 <li><a href="#references">References</a></li>
@@ -45,7 +46,7 @@
     <div class="stackedit__html">
       <h1 id="databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</h1>
 <p>Created: 28 Nov 2020<br>
-Modified: 5 Dec 2020</p>
+Modified: 7 Dec 2020</p>
 <h2 id="key-topics">Key Topics</h2>
 <ul>
 <li>Indexes and Transactions</li>
@@ -95,7 +96,7 @@ Modified: 5 Dec 2020</p>
 <ul>
 <li>Size of table (and possibly layouts)</li>
 <li>Data distribution</li>
-<li>Query sv. update load</li>
+<li>Query vs. update load</li>
 </ul>
 <h3 id="physical-design-advisor">“Physical” design advisor</h3>
 <p>Input: Database (statistics) and workload<br>
@@ -655,6 +656,80 @@ Apply(sID, cName, major, decision)
                 <span class="token keyword">WHERE</span> decision <span class="token operator">=</span> <span class="token string">'Y'</span>
             <span class="token punctuation">)</span>
     <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="referential-integrity">Referential Integrity</h2>
+<h3 id="what-is-a-referential-integrity">What is a referential integrity?</h3>
+<ul>
+<li>integrity of references</li>
+<li>no “dangling pointers” from a pointer point of view</li>
+<li>directional</li>
+</ul>
+<p>Referential integrity from <code>R.A</code> to <code>S.B</code>:<br>
+Each value in column <code>A</code> of table <code>R</code> must appear in column <code>B</code> of table <code>S</code>.</p>
+<ul>
+<li><code>A</code> is called the “foreign key”</li>
+<li><code>B</code> is usually required to be the <em><strong>primary key</strong></em> for table <code>S</code> or at least <em><strong>unqiue</strong></em> for efficient implementation purpose</li>
+<li>Multi-attribute foreign keys are allowed</li>
+</ul>
+<pre class=" language-c"><code class="prism  language-c"><span class="token comment">// insert picture</span>
+</code></pre>
+<h3 id="how-to-enforce-a--referential-integrity">How to enforce a  referential integrity?</h3>
+<p>Referential integrity from <code>R.A</code> to <code>S.B</code></p>
+<p>Potentially violating modifications:</p>
+<ul>
+<li><code>INSERT INTO R</code></li>
+<li><code>DELETE FROM S</code></li>
+<li><code>UPDATE R.A</code></li>
+<li><code>UPDATE S.B</code></li>
+</ul>
+<p>Constraint checking has to be perform upon these operations to ensure the referential integrity.</p>
+<p>Special handlings for <code>Delete from S</code> or <code>Update S.B</code>:</p>
+<ul>
+<li>Restrict (default) - throw constraint violation error</li>
+<li>Set Null - set the referencing foreign keys in R.A as Null</li>
+<li>Cascade
+<ul>
+<li><code>Delete from S</code>: delete referencing tuples in R</li>
+<li><code>Update S.B</code>: propagate the change to the referencing foreign keys in R.A</li>
+</ul>
+</li>
+</ul>
+<h3 id="how-to-create-referential-integrity-in-sql-syntax">How to create referential integrity in SQL syntax?</h3>
+<h4 id="example-basic-foreign-keys">Example: Basic foreign keys</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">Apply</span><span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span> <span class="token keyword">REFERENCES</span> Student<span class="token punctuation">(</span>sID<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	cName <span class="token keyword">TEXT</span> <span class="token keyword">REFERENCES</span> College<span class="token punctuation">(</span>cName<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	major <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	decision <span class="token keyword">TEXT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This creates the <code>Apply</code> table with two foreign keys</p>
+<ul>
+<li>from <code>Apply.sID</code> to <code>Student.sID</code></li>
+<li>from <code>Apply.cName</code> to <code>College.cName</code></li>
+</ul>
+<h4 id="example-foreign-keys-with-special-handlings">Example: Foreign keys with special handlings</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">Apply</span><span class="token punctuation">(</span>
+	sID <span class="token keyword">INT</span> <span class="token keyword">REFERENCES</span> Student<span class="token punctuation">(</span>sID<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">SET</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+	cName <span class="token keyword">TEXT</span> <span class="token keyword">REFERENCES</span> College<span class="token punctuation">(</span>cName<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token keyword">UPDATE</span> <span class="token keyword">CASCADE</span><span class="token punctuation">,</span>
+	major <span class="token keyword">TEXT</span><span class="token punctuation">,</span>
+	decision <span class="token keyword">TEXT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This adds the automatic handlings of the two foreign keys upon deletion and update respectively.</p>
+<ul>
+<li><code>ON DELETE SET NULL</code></li>
+<li><code>ON UPDATE CASCADE</code></li>
+</ul>
+<p>If this is not specified expicitly, the default restrict option will be applied.</p>
+<h4 id="example-multi-attribute-foreign-keys-on-the-same-table">Example: Multi-attribute foreign keys on the same table</h4>
+<pre class=" language-sql"><code class="prism  language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> T <span class="token punctuation">(</span>
+    A <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    B <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    C <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>B<span class="token punctuation">,</span> C<span class="token punctuation">)</span> <span class="token keyword">REFERENCES</span> T<span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h1 id="references">References</h1>
