@@ -5,14 +5,14 @@ This repository maintains my notes on CS and Math.
 
 ## Content
 
-### Financial Mathematics
-- [Fixed Income Derivatives](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Financial%20Math/Fixed%20Income%20Derivatives.html)
-- Equity Derivatives (To be available)
-
 ### Mathematics
 - [Fourier Analysis](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Fourier%20Analysis.html)
 - [Singular Value Decomposition](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Singular%20Value%20Decomposition.html)
 - [Control Theory](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Mathematics/Control%20Theory.html)
+
+#### Financial Mathematics
+- [Fixed Income Derivatives](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Financial%20Math/Fixed%20Income%20Derivatives.html)
+- Equity Derivatives (To be available)
 
 ### Computer Science / Coding
 
@@ -29,6 +29,7 @@ This repository maintains my notes on CS and Math.
 #### Computer Hardware and Operating Systems
 
 - [Fundamentals of System Hardware](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/OS%20-%201%20-%20System%20Hardware.html)
+- [Intro to Operating Systems](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/OS%20-%202%20-%20Intro%20to%20OS.html)
 
 ## Resources
 
