@@ -20,13 +20,13 @@ This repository maintains my notes on CS and Math.
 - [C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/Course%20I%20-%20Object-Oriented%20Data%20Structures%20in%20C%2B%2B.html)
 - [Ordered Data Structure in C++](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/Course%20II%20-%20Ordered%20Data%20Structures.html)
 
-### Relational Databases
+#### Relational Databases
 
 - [SQL](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/SQL%20Training.html)
 - [Databases: Advanced Topics in SQL](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/Databases%20-%20Advanced%20Topics.html)
 
 
-### Computer Hardware and Operating Systems
+#### Computer Hardware and Operating Systems
 
 - [Fundamentals of System Hardware](https://htmlpreview.github.io/?https://github.com/derekl-beep/cs-notes/blob/master/Computer%20Science/OS%20-%201%20-%20System%20Hardware.html)
 
