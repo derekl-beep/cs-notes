@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OS - 2 - Intro to OS</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#introduction-to-operating-systems">2 - Introduction to Operating Systems</a>
+<ul>
+<li><a href="#key-topics">Key Topics</a></li>
+<li><a href="#what-is-an-os">What is an OS?</a></li>
+<li><a href="#layers-of-interaction">Layers of Interaction</a>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#the-kernel">The Kernel</a></li>
+<li><a href="#back-in-the-olden-days">Back in the Olden Days</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="introduction-to-operating-systems">2 - Introduction to Operating Systems</h1>
+<p>Created: 10 December 2020<br>
+Modified: 10 December 2020</p>
+<h2 id="key-topics">Key Topics</h2>
+<ul>
+<li>What is an operating system</li>
+<li>Basics of how operating systems work</li>
+<li>A short history of operating systems</li>
+<li>Preemptive processing concepts</li>
+<li>Architecture of an OS</li>
+<li>Some modern operating systems</li>
+</ul>
+<h2 id="what-is-an-os">What is an OS?</h2>
+<p>A program that <strong>controls execution of application programs</strong> and acts as an <strong>interface</strong> between applications and computer hardware.</p>
+<ul>
+<li>A software which manages “the system”</li>
+<li>Runs on the same processor as the user’s program code</li>
+<li>Does not include applications</li>
+</ul>
+<h2 id="layers-of-interaction">Layers of Interaction</h2>
+<p>User &lt;–&gt; Application &lt;–&gt; Operating System &lt;–&gt; Hardware</p>
+<h4 id="example">Example</h4>
+<p>When an application calls <code>open("file.txt", "r")</code>, the OS performs a list of operations, incl.</p>
+<ul>
+<li>provides file handle</li>
+<li>determines file location</li>
+<li>accesses file</li>
+<li>marks as read-only</li>
+</ul>
+<h2 id="the-kernel">The Kernel</h2>
+<ul>
+<li>The core component of the OS</li>
+<li>Responsible for managing system sources
+<ul>
+<li>Memory management - RAM</li>
+<li>Process scheduling - CPU time</li>
+</ul>
+</li>
+<li>Assists applications with performing work</li>
+</ul>
+<h2 id="back-in-the-olden-days">Back in the Olden Days</h2>
+<p>When mainframes dominated the computing industry:</p>
+<ul>
+<li>The computer ran only <strong>one</strong> program at a time</li>
+<li>The one program had complete access to all the system resources</li>
+<li>The OS was only responsible for getting programs ready to run</li>
+<li>Requires JCL: job control language</li>
+<li>The mainframe operator (a human) decided which order to run programs in</li>
+<li>When one program finished, the OS was ready with the next that wanted to run</li>
+<li>This is called batch multiprogramming</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li>Computer Hardware and Operating Systems<br>
+<a href="https://www.edx.org/bio/daniel-katz-braunschweig">Daniel Katz-Braunschweig</a>, Senior Lecturer at Tandon School of Engineering<br>
+<a href="https://www.edx.org/bio/aspen-olmsted">Aspen Olmsted</a>, Adjunct Professor at Tandon School of Engineering<br>
+New York University<br>
+URL: <a href="https://www.edx.org/course/computer-hardware-and-operating-systems">https://www.edx.org/course/computer-hardware-and-operating-systems</a></li>
+</ul>
+<hr>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
