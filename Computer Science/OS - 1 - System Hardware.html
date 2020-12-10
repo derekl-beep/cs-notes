@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OS - 1 - System Hardware</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#fundamentals-of-system-hardware">1 - Fundamentals of System Hardware</a>
+<ul>
+<li><a href="#key-topics">Key Topics</a></li>
+<li><a href="#definition-of-a-computer">Definition of a computer</a></li>
+<li><a href="#types-of-computers">Types of computers</a></li>
+<li><a href="#inside-a-computer">Inside a computer</a></li>
+<li><a href="#whats-common">What’s Common?</a></li>
+<li><a href="#communications-between-the-devices">Communications between the devices</a></li>
+<li><a href="#the-cpu">The CPU</a></li>
+<li><a href="#machine-language">Machine Language</a></li>
+<li><a href="#instruction-set">Instruction Set</a></li>
+<li><a href="#fetch-execute-cycle">Fetch-Execute Cycle</a></li>
+<li><a href="#memory">Memory</a></li>
+<li><a href="#the-memory-hierarchy">The Memory Hierarchy</a></li>
+<li><a href="#ram">RAM</a></li>
+<li><a href="#secondary-storage">Secondary Storage</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="fundamentals-of-system-hardware">1 - Fundamentals of System Hardware</h1>
+<p>Created: 8 December 2020<br>
+Modified: 10 December 2020</p>
+<h2 id="key-topics">Key Topics</h2>
+<ul>
+<li>Definition of a computer</li>
+<li>Types of computers</li>
+<li>What’s inside a computer (macro view)</li>
+<li>What each components does</li>
+<li>How components communicate</li>
+<li>How the CPU works</li>
+<li>The memory hierarchy</li>
+<li>Hard disks</li>
+</ul>
+<h2 id="definition-of-a-computer">Definition of a computer</h2>
+<p>The computer is an <em><strong>electromechanical</strong></em> device which takes input, does processing and produces output.</p>
+<h2 id="types-of-computers">Types of computers</h2>
+<ul>
+<li>Laptops</li>
+<li>Desktops</li>
+<li>Servers</li>
+<li>Mainframe</li>
+<li>etc.</li>
+</ul>
+<h2 id="inside-a-computer">Inside a computer</h2>
+<ul>
+<li><strong>CPU</strong> - “brain” of the computer; do all the calculations; includes registers, the CU and ALU, L1 and L2 caches.</li>
+<li><strong>Main memory</strong> - where codes and data are stored temporarily</li>
+<li><strong>Video card / GPU</strong> - stores info to display on the screen; do complex calcuations related to decimal numbers</li>
+<li><strong>Secondary storage</strong> - Hard drive or Solid state; permanent storage</li>
+<li><strong>Tertiary storage</strong> - e.g. CD-Rom, DVD, Blu-Ray. Offline storage.</li>
+<li><strong>Power supply</strong> - provide 5V or 12V DC supply</li>
+<li><strong>Mainboard / Motherboard</strong> - provides physical connectivity for all the devices, included the system bus and all peripheral busses.</li>
+</ul>
+<h2 id="whats-common">What’s Common?</h2>
+<p><em><strong>All</strong></em> computers have</p>
+<ul>
+<li>At least one <strong>Central Processing Unit (CPU)</strong> which is the “brain” of the computer</li>
+<li><strong>Main memory (RAM)</strong> where codes and data are stored temporarily</li>
+<li><strong>Secodary storage</strong> where informatin is stored permanently</li>
+</ul>
+<p><em><strong>Most</strong></em> computers will have</p>
+<ul>
+<li>A <strong>video graphic controller</strong> where images can be rendered for display on a screen
+<ul>
+<li>GPU - performs efficient <em><strong>floating-point arithmetic</strong></em> opertions</li>
+</ul>
+</li>
+<li>A <strong>network interface</strong> for communications, e.g. Ethernet, FDDI</li>
+<li><strong>Peripheral interfaces</strong>, e.g. USB, Thunderbolt, Firewire, SCSI</li>
+</ul>
+<h2 id="communications-between-the-devices">Communications between the devices</h2>
+<ul>
+<li>Internal communications in a machine is done via a <strong>bus</strong>.</li>
+<li>A bus is a <strong>physical pathway</strong> for communcation between two or more devices</li>
+<li>The <strong>system bus</strong> is the main pathway between the CPU and main memory, but also carries data to and from Input and Output (IO) devices.</li>
+<li>USB - universal serial bus</li>
+</ul>
+<h2 id="the-cpu">The CPU</h2>
+<ul>
+<li>Designed by computer engineers</li>
+<li>the “brain” of the computer</li>
+<li>a single piece of silicon in the form of chip
+<ul>
+<li>transistors</li>
+<li>logic gates</li>
+</ul>
+</li>
+<li>the only where code is actually executed in the system</li>
+<li>only runs <strong>machine language</strong> code</li>
+<li>operates on a <strong>fetch-decode-execute</strong> cycle
+<ul>
+<li>fetch an instruction from main memory</li>
+<li>decode the instruction</li>
+<li>execute the instruction</li>
+</ul>
+</li>
+<li>each types of CPU has its own set of <strong>instructions</strong> which is understands</li>
+<li>has a small amount of memory, call <strong>registers</strong> which it uses to perform operations and store results - no latency</li>
+<li>have a <strong>cache</strong> memory to perform more quickly.</li>
+</ul>
+<h2 id="machine-language">Machine Language</h2>
+<p>Computers can only understand very basic commands, e.g.</p>
+<ul>
+<li>Move</li>
+<li>Add</li>
+<li>Subtract</li>
+<li>Multiply</li>
+<li>Compare</li>
+<li>Jump</li>
+<li>etc.</li>
+</ul>
+<p>Designers of CPUs put the capability to perform these operations in the physical chip.</p>
+<h2 id="instruction-set">Instruction Set</h2>
+<p>The designers of the CPU create a set of instructions that the CPU can perform.</p>
+<p>When the CPU receives a particular instruction, it performs that tasks.</p>
+<p>This set of instructions, usually as amll as 100, can each be represented by a numeric value, i.e. the OpCode.</p>
+<table align="center">
+<thead><tr><th>Instruction</th><th>OpCode</th></tr></thead><tbody><tr><td>ADD</td><td>0x00</td></tr><tr><td>AND</td><td>0x20</td></tr><tr><td>CMP</td><td>0x38</td></tr><tr><td>INT</td><td>0xCD</td></tr><tr><td>JMP</td><td>0xE9</td></tr></tbody>
+</table>
+<h2 id="fetch-execute-cycle">Fetch-Execute Cycle</h2>
+<ul>
+<li>The CPU performs a fetch to <em>move the instruction from main memory into the CPU</em> (specifically into an instruction register).</li>
+<li>It then decodes the instruction, also moving in any additional data that might be necessary with that instruction.</li>
+<li>It then executes that instruction</li>
+<li>This process repeats with the next instruction in the sequence</li>
+</ul>
+<h2 id="memory">Memory</h2>
+<p align="center">
+	<img src="https://i.imgur.com/lc13yVJ.png" width="50%">
+</p>
+<ul>
+<li>The instruction, and all the data, has to come from somewhere.</li>
+<li>In order for code to be executed, it has to be in a register built into the CPU</li>
+<li>Why not just store everything in registers?
+<ul>
+<li>They are <strong>expensive</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="the-memory-hierarchy">The Memory Hierarchy</h2>
+<table align="center">
+<thead>
+  <tr>
+    <th></th>
+    <th>Component</th>
+    <th>Size (for example)</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Faster and smaller capacity</td>
+    <td>Register</td>
+    <td>576 B</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Cache (L1)</td>
+    <td>64 KB</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Cache (L2)</td>
+    <td>20 MB</td>
+  </tr>
+  <tr>
+    <td>Slower and bigger capacity</td>
+    <td>DDR / Main Memery</td>
+    <td>384 GB</td>
+  </tr>
+</tbody>
+</table>
+<h2 id="ram">RAM</h2>
+<ul>
+<li>Known as <strong>Random</strong> Access Memory</li>
+<li>constant access time to any point in the RAM</li>
+<li>Memory are broken ddown into <strong>bytes</strong>, with each byte being able to be accessed independently of the others</li>
+<li>When the computer is turned off, everything in RAM is lost
+<ul>
+<li>Sleep mode</li>
+<li>Hibernate mode</li>
+</ul>
+</li>
+<li>When running a program, all the machine language instructions are brought into RAM and, one-by-one, pull into the CPU by the fetch and execute cycle</li>
+</ul>
+<h2 id="secondary-storage">Secondary Storage</h2>
+<p>Hard Disk Drive (HHD)</p>
+<ul>
+<li>also known as “spinning” drives</li>
+<li>Contain mulitple magnetic material discs which rotate together at a constant velocity</li>
+<li>Contain read heads which move to different radii on the disk</li>
+<li>Allow the system to access any position via it’s three dimensional polar coordinates</li>
+<li>Accessing first the innermost radius then the outermost radius takes significantly longer than two adjacent radii.</li>
+<li>Size is usually measured in terabytes.</li>
+</ul>
+<p>Solid State Disks (SSD)</p>
+<ul>
+<li>Contain a number of chips like USB flash drives</li>
+<li>Data is stored, electrically, in these chips</li>
+<li>All data can be accessed in the same amount of time</li>
+<li>Due to cost, these drives are smaller than HDDs but perform much faster.</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li>Computer Hardware and Operating Systems<br>
+<a href="https://www.edx.org/bio/daniel-katz-braunschweig">Daniel Katz-Braunschweig</a>, Senior Lecturer at Tandon School of Engineering<br>
+<a href="https://www.edx.org/bio/aspen-olmsted">Aspen Olmsted</a>, Adjunct Professor at Tandon School of Engineering<br>
+New York University<br>
+URL: <a href="https://www.edx.org/course/computer-hardware-and-operating-systems">https://www.edx.org/course/computer-hardware-and-operating-systems</a></li>
+</ul>
+<hr>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
+</blockquote>
+
+    </div>
+  </div>
+</body>
+
+</html>
