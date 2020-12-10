@@ -24,6 +24,12 @@
 </li>
 <li><a href="#the-kernel">The Kernel</a></li>
 <li><a href="#back-in-the-olden-days">Back in the Olden Days</a></li>
+<li><a href="#todays-environment">Today’s Environment</a></li>
+<li><a href="#os-levels">OS Levels</a></li>
+<li><a href="#the-windows-model">The Windows Model</a></li>
+<li><a href="#the-hal">The HAL</a></li>
+<li><a href="#windows-device-drivers">Windows Device Drivers</a></li>
+<li><a href="#unix">UNIX</a></li>
 </ul>
 </li>
 <li><a href="#reference">Reference</a></li>
@@ -83,6 +89,128 @@ Modified: 10 December 2020</p>
 <li>The mainframe operator (a human) decided which order to run programs in</li>
 <li>When one program finished, the OS was ready with the next that wanted to run</li>
 <li>This is called batch multiprogramming</li>
+</ul>
+<h2 id="todays-environment">Today’s Environment</h2>
+<ul>
+<li>Today, we have lots of processing power and lots of resources - enough to run multiple programs at the same time</li>
+<li>The OS becomes a resource manager
+<ul>
+<li>The OS manages allocation of resources, incl. memory, CPU time, file handle, network connection</li>
+<li>The OS decides which programs can run and when</li>
+<li>The OS will stop and restart running programs, preemption</li>
+<li>This is called time sharing</li>
+</ul>
+</li>
+</ul>
+<h2 id="os-levels">OS Levels</h2>
+<table align="center">
+<thead>
+  <tr>
+    <th></th>
+    <th>Level</th>
+    <th>Name</th>
+    <th>Brief Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td rowspan="6">Other OS</td>
+    <td>13</td>
+    <td>Shell</td>
+    <td>user interfaces</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>User Processes</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>Directories</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>Devices</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>File Systems</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>Communications</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td rowspan="3">Kernel</td>
+    <td>7</td>
+    <td>Virtual Memory</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>Secondary Storage</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Primitive Processes</td>
+    <td>e.g. system scheduling</td>
+  </tr>
+  <tr>
+    <td rowspan="4">Hardware</td>
+    <td>4</td>
+    <td>Interrupts</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Procedures</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Processor Instruction Set</td>
+    <td>i.e. the processor architecture</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Electronic Circuits</td>
+    <td></td>
+  </tr>
+</tbody>
+</table>
+<h2 id="the-windows-model">The Windows Model</h2>
+<p align="center">
+	<img src="https://i.imgur.com/9Y7XPxV.png" width="50%">
+</p>
+<blockquote>
+<p>source: <a href="https://www.edx.org/course/computer-hardware-and-operating-systems">https://www.edx.org/course/computer-hardware-and-operating-systems</a></p>
+</blockquote>
+<h2 id="the-hal">The HAL</h2>
+<ul>
+<li>HAL - Hardware Abstraction Layer</li>
+<li>Different types of systems have slightly different hardware</li>
+<li>a layer which can provide the kernel with a set of functions to call which program the hardware properly</li>
+<li>Changes to hardware only require chanding the HAL, not rewriting the whole OS</li>
+</ul>
+<h2 id="windows-device-drivers">Windows Device Drivers</h2>
+<ul>
+<li>Device drivers are kernel-layer software written by companies that design hardware</li>
+<li>They provide functions for the kernel to call in order to access the hardware</li>
+<li>They were the cause of frequent “blue screening” before Windows Hardware Quality Labs (WHQL)</li>
+</ul>
+<h2 id="unix">UNIX</h2>
+<ul>
+<li>A multi-user, multi-tasking OS</li>
+<li>started by AT&amp;T Bell Laboratories</li>
+<li>Designed to allow users to manage their own tasks</li>
+<li>Released into public domain as open source software</li>
+<li>Comes in many different flavors: AIX, Linux, Solaris, etc.</li>
+<li>Has been modified many, many times</li>
 </ul>
 <h1 id="reference">Reference</h1>
 <ul>
